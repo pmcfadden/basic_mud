@@ -3,19 +3,23 @@ require 'socket'
 require "classless_mud/version"
 
 class Game
-  def initialize client, player
-    @client = client
+  def initialize player
     @player = player
   end
 
   def start
-    @client.puts "game starting"
+    @player.handle_message "game starting"
   end
 end
 
 class Player
-  def initialize name
+  def initialize client, name
+    @client = client
     @name = name
+  end
+
+  def handle_message message
+    @client.puts message
   end
 end
 
@@ -28,9 +32,9 @@ module ClasslessMud
       client.puts "Enter name:"
       name = client.gets
       client.puts name
-      player = Player.new name
+      player = Player.new client, name
       client.puts player
-      game = Game.new client, player
+      game = Game.new player
       client.puts game
       game.start
     end
