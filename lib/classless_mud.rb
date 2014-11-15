@@ -14,6 +14,20 @@ class Game
 
   def start_game_for player
     player.handle_message "game starting"
+    loop do
+      input = player.gets
+      if input == 'quit'
+        player.puts "Are you sure you want to quit? y/n: "
+        response = player.gets
+        player.puts response
+        if response == 'y' || response == 'Y'
+          player.puts "Thanks for playing"
+          player.close_client
+        end
+      else
+        player.handle_message input
+      end
+    end
   end
 end
 
@@ -24,7 +38,19 @@ class Player
   end
 
   def handle_message message
+    self.puts message
+  end
+
+  def gets
+    @client.gets.chomp
+  end
+
+  def puts message
     @client.puts message
+  end
+
+  def close_client
+    @client.close
   end
 end
 
