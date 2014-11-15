@@ -3,12 +3,17 @@ require 'socket'
 require "classless_mud/version"
 
 class Game
-  def initialize player
-    @player = player
+  def initialize
+    @players = []
   end
 
-  def start
-    @player.handle_message "game starting"
+  def add_player player
+    @players << player
+    self.start_game_for player
+  end
+
+  def start_game_for player
+    player.handle_message "game starting"
   end
 end
 
@@ -26,6 +31,7 @@ end
 module ClasslessMud
   server = TCPServer.new 2000
 
+  game = Game.new
   puts "Starting server on port 2000"
   loop do
     Thread.start(server.accept) do |client|
@@ -34,9 +40,7 @@ module ClasslessMud
       client.puts name
       player = Player.new client, name
       client.puts player
-      game = Game.new player
-      client.puts game
-      game.start
+      game.add_player player
     end
   end
 end
