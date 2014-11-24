@@ -1,5 +1,3 @@
-require_relative "./room.rb"
-
 module ClasslessMud
   class World
     def initialize

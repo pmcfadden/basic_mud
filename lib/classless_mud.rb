@@ -1,8 +1,10 @@
 require 'socket'
 
-require_relative "./game.rb"
-require_relative "./player.rb"
-require "classless_mud/version"
+require_relative "../lib/classless_mud/version"
+require_relative "../lib/classless_mud/player.rb"
+require_relative "../lib/classless_mud/world.rb"
+require_relative "../lib/classless_mud/game.rb"
+require_relative "../lib/classless_mud/room.rb"
 
 module ClasslessMud
   server = TCPServer.new 2000

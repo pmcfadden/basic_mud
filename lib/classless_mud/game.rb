@@ -1,5 +1,3 @@
-require_relative "./world.rb"
-
 module ClasslessMud
   class Game
     def initialize
