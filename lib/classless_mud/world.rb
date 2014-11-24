@@ -12,6 +12,15 @@ module ClasslessMud
     def starting_room
       @rooms[0]
     end
-  end
 
+    def handle_message message
+      broadcast message
+    end
+
+    def broadcast message
+      @rooms.each do |room|
+        room.handle_message message
+      end
+    end
+  end
 end
