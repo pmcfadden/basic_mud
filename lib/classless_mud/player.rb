@@ -1,10 +1,19 @@
 module ClasslessMud
   class Player
+    include DataMapper::Resource
+    property :id, Serial
+    property :name, String
+
     attr_reader :name
 
-    def initialize client, name
+    def self.accept client, name
+      player = first(:name => name.chomp) || Player.create(:name => name.chomp)
+      player.client= client
+      player
+    end
+
+    def client= client
       @client = client
-      @name = name
     end
 
     def handle_message message

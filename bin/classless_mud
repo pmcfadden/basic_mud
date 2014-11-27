@@ -8,3 +8,4 @@ if File.exists?(git_path)
 end
 
 require 'classless_mud'
+ClasslessMud.start!
