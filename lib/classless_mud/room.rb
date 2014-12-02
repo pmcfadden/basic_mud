@@ -1,5 +1,9 @@
 module ClasslessMud
   class Room
+    include DataMapper::Resource
+    property :id, Serial
+    has n, :players
+
     def initialize
       @occupants = []
     end
