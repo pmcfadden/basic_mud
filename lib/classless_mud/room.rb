@@ -4,19 +4,20 @@ module ClasslessMud
     property :id, Serial
     has n, :players
 
-    def initialize
-      @occupants = []
-    end
-
     def enter player
       broadcast "#{player.name} entered the room"
 
-      @occupants << player
+      self.players << player
       player.handle_message description
     end
 
+    def exit player
+      self.players.delete player
+      broadcast "#{player.name} left the room"
+    end
+
     def broadcast message
-      @occupants.each do |occupant|
+      self.players.each do |occupant|
         occupant.handle_message message
       end
     end

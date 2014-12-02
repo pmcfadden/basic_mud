@@ -28,6 +28,7 @@ module ClasslessMud
         response = player.gets
         if response == 'y' || response == 'Y'
           player.puts "Thanks for playing"
+          player.room.exit player
           player.close_client
         end
       else
