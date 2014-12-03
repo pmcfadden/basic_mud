@@ -19,7 +19,11 @@ module ClasslessMud
 
     server = TCPServer.new 2000
 
-    game = Game.new
+    room1 = Room.create
+    room2 = Room.create
+    room1.exits.create direction: 'north', target: room2
+    world = World.new [room1, room2]
+    game = Game.new world
     puts "Starting server on port 2000"
     loop do
       Thread.start(server.accept) do |client|

@@ -1,8 +1,8 @@
 module ClasslessMud
   class World
-    def initialize
+    def initialize rooms
       @players = []
-      @rooms = [Room.new]
+      @rooms = rooms
     end
 
     def add_player player

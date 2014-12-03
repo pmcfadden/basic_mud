@@ -1,9 +1,9 @@
 module ClasslessMud
   class Game
-    def initialize
+    def initialize world
       @input_parser = InputParser.new
       @players = []
-      @world = World.new
+      @world = world
     end
 
     def add_player player
@@ -30,6 +30,14 @@ module ClasslessMud
           player.puts "Thanks for playing"
           player.room.exit player
           player.close_client
+        end
+      elsif message == "north"
+        valid_exit = player.room.exits.detect {|exit| exit.direction == "north"}
+        if valid_exit
+          player.room.exit player
+          valid_exit.target.enter player
+        else
+          player.puts "You can't go that way."
         end
       else
         broadcast message
