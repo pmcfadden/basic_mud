@@ -19,10 +19,10 @@ module ClasslessMud
 
     server = TCPServer.new 2000
 
-    room1 = Room.create
-    room2 = Room.create
-    room1.exits.create direction: 'north', target: room2
-    room2.exits.create direction: 'south', target: room1
+    room1 = Room.create! description: "You exit an elevator and glance around.  There's a set of glass double doors to the west and an intersection of hallways to the east"
+    room2 = Room.create! description: "You are at an intersection of hallways.  Glass double doors lay to the north and south. An extension of the hallway lays to the west"
+    room1.exits.create! direction: 'east', target: room2
+    room2.exits.create! direction: 'west', target: room1
     world = World.new [room1, room2]
     game = Game.new world
     puts "Starting server on port 2000"
