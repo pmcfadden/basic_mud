@@ -6,6 +6,7 @@ require_relative "classless_mud/player.rb"
 require_relative "classless_mud/world.rb"
 require_relative "classless_mud/game.rb"
 require_relative "classless_mud/room.rb"
+require_relative "classless_mud/exit.rb"
 require_relative "classless_mud/input_parser.rb"
 
 module ClasslessMud

@@ -3,6 +3,8 @@ module ClasslessMud
     include DataMapper::Resource
     property :id, Serial
     has n, :players
+    has n, :exits, :child_key => [ :source_id ]
+    has n, :connected_rooms, self, :through => :exits, :via => :target
 
     def enter player
       broadcast "#{player.name} entered the room"
