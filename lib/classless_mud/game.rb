@@ -31,16 +31,8 @@ module ClasslessMud
           player.room.exit player
           player.close_client
         end
-      elsif message == "north"
-        valid_exit = player.room.exits.detect {|exit| exit.direction == "north"}
-        if valid_exit
-          player.room.exit player
-          valid_exit.target.enter player
-        else
-          player.puts "You can't go that way."
-        end
       else
-        broadcast message
+        player.move message
       end
     end
 

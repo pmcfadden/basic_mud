@@ -32,5 +32,15 @@ module ClasslessMud
     def close_client
       @client.close
     end
+
+    def move direction
+      valid_exit = self.room.exits.detect {|exit| exit.direction == direction}
+      if valid_exit
+        self.room.exit self
+        valid_exit.target.enter self
+      else
+        self.puts "You can't go that way."
+      end
+    end
   end
 end

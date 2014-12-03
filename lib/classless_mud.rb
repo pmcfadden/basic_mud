@@ -22,6 +22,7 @@ module ClasslessMud
     room1 = Room.create
     room2 = Room.create
     room1.exits.create direction: 'north', target: room2
+    room2.exits.create direction: 'south', target: room1
     world = World.new [room1, room2]
     game = Game.new world
     puts "Starting server on port 2000"
