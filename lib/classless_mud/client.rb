@@ -29,9 +29,9 @@ EOS
       if @callbacks.any?
         callback = @callbacks.pop
         callback.call(data)
-        return
+      else
+        player.handle_message(data)
       end
-      player.handle_message(data)
     end
 
     def on &callback
