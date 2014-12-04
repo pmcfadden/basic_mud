@@ -5,6 +5,7 @@ require 'eventmachine'
 require_relative "classless_mud/version"
 require_relative "classless_mud/server"
 require_relative "classless_mud/client"
+require_relative "classless_mud/account"
 require_relative "classless_mud/player"
 require_relative "classless_mud/world"
 require_relative "classless_mud/game"

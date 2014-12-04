@@ -8,8 +8,9 @@ module ClasslessMud
     end
 
     def start
-      @signature = EventMachine.start_server('0.0.0.0', @port, ::ClasslessMud::Client) do |con|
-        con.game = game
+      @signature = EventMachine.start_server('0.0.0.0', @port, ::ClasslessMud::Client) do |client|
+        client.game = game
+        client.start
       end
     end
 

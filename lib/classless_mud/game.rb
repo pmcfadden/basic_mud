@@ -9,7 +9,6 @@ module ClasslessMud
     def add_player player
       @players << player
       @world.add_player player
-      player.puts "game starting"
       @world.starting_room.enter player
     end
 
