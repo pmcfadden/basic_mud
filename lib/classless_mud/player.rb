@@ -17,29 +17,43 @@ module ClasslessMud
       @client = client
     end
 
-    def handle_message message
-      self.puts message
-    end
-
-    def gets
-      @client.gets.chomp
-    end
-
     def puts message
       @client.puts message
     end
 
     def close_client
-      @client.close
+      @client.close_connection
+    end
+
+    def handle_message message
+      if message == 'quit'
+        puts "Are you sure you want to quit? y/n: "
+        @client.on do |response|
+          if response == 'y' || response == 'Y'
+            puts "Thanks for playing"
+            room.exit self
+            close_client
+          end
+        end
+      elsif message == 'dance'
+        puts "Are you sure you want to dance? y/n: "
+        @client.on do |response|
+          if response == 'y' || response == 'Y'
+            puts 'You are a dancing fool'
+          end
+        end
+      else
+        move message
+      end
     end
 
     def move direction
       valid_exit = self.room.exits.detect {|exit| exit.direction == direction}
       if valid_exit
-        self.room.exit self
+        room.exit self
         valid_exit.target.enter self
       else
-        self.puts "You can't go that way."
+        puts "You can't go that way."
       end
     end
   end
