@@ -3,71 +3,16 @@ require 'data_mapper'
 require 'eventmachine'
 
 require_relative "classless_mud/version"
-require_relative "classless_mud/player.rb"
-require_relative "classless_mud/world.rb"
-require_relative "classless_mud/game.rb"
-require_relative "classless_mud/room.rb"
-require_relative "classless_mud/exit.rb"
-require_relative "classless_mud/input_parser.rb"
+require_relative "classless_mud/server"
+require_relative "classless_mud/client"
+require_relative "classless_mud/player"
+require_relative "classless_mud/world"
+require_relative "classless_mud/game"
+require_relative "classless_mud/room"
+require_relative "classless_mud/exit"
+require_relative "classless_mud/input_parser"
 
 module ClasslessMud
-  class Server
-    attr_reader :game
-
-    def initialize port, game
-      @port = port
-      @game = game
-    end
-
-    def start
-      @signature = EventMachine.start_server('0.0.0.0', @port, ::ClasslessMud::Client) do |con|
-        con.game = game
-      end
-    end
-
-    def stop
-      EventMachine.stop_server(@signature)
-    end
-  end
-
-  class Client < EventMachine::Connection
-    attr_accessor :game
-    attr_reader :player
-
-    def initialize
-      @logged_in = false
-    end
-
-    def post_init
-      send_data "Enter name:"
-    end
-
-    def receive_data data
-      data = data.chomp
-      return login(data) unless @logged_in
-      if @callback
-        @callback.call(data)
-        @callback = nil
-        return
-      end
-      player.handle_message data
-    end
-
-    def on &callback
-      @callback = callback
-    end
-
-    def login name
-      @logged_in = true
-      @player = Player.accept self, name
-      game.add_player player
-    end
-
-    def puts message
-      send_data "#{message}\n"
-    end
-  end
-
   def self.start!
     DataMapper::Logger.new($stdout, :debug)
     db_name = YAML.load_file('conf/settings.yml')['db']['name']
