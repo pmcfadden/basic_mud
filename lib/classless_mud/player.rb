@@ -3,6 +3,7 @@ module ClasslessMud
     include DataMapper::Resource
     property :id, Serial
     property :name, String
+    property :password, BCryptHash
     belongs_to :room
 
     attr_reader :name
