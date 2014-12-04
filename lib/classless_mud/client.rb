@@ -1,36 +1,42 @@
 module ClasslessMud
+  MOTD = <<EOS
+                  .-~~~~~~~~~-._       _.-~~~~~~~~~-.
+              __.'              ~.   .~              `.__
+            .'//  We    are       \./    awesome.      \\`.
+          .'//                     |                     \\`.
+        .'// .-~"""""""~~~~-._     |     _,-~~~~"""""""~-. \\`.
+      .'//.-"                 `-.  |  .-'                 "-.\\`.
+    .'//______.============-..   \ | /   ..-============.______\\`.
+  .'______________________________\|/______________________________`.
+EOS
+
   class Client < EventMachine::Connection
     attr_accessor :game
-    attr_reader :player
+    attr_reader :account
 
     def initialize
       @logged_in = false
       @callbacks = []
     end
 
-    def post_init
-      send_data 'Enter name: '
+    def start
+      send_data MOTD
+      @account = ::ClasslessMud::Account.new(self, game)
+      account.login_or_create
     end
 
     def receive_data data
       data = data.chomp
-      return login(data) unless @logged_in
       if @callbacks.any?
         callback = @callbacks.pop
         callback.call(data)
         return
       end
-      player.handle_message data
+      account.handle_message(data)
     end
 
     def on &callback
       @callbacks.push callback
-    end
-
-    def login name
-      @logged_in = true
-      @player = Player.accept self, name
-      game.add_player player
     end
 
     def puts message
