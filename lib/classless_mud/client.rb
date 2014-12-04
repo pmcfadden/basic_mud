@@ -8,7 +8,7 @@ module ClasslessMud
     end
 
     def post_init
-      send_data "Enter name:"
+      send_data 'Enter name: '
     end
 
     def receive_data data
