@@ -5,6 +5,7 @@ module ClasslessMud
 
     def initialize
       @logged_in = false
+      @callbacks = []
     end
 
     def post_init
@@ -14,16 +15,16 @@ module ClasslessMud
     def receive_data data
       data = data.chomp
       return login(data) unless @logged_in
-      if @callback
-        @callback.call(data)
-        @callback = nil
+      if @callbacks.any?
+        callback = @callbacks.pop
+        callback.call(data)
         return
       end
       player.handle_message data
     end
 
     def on &callback
-      @callback = callback
+      @callbacks.push callback
     end
 
     def login name
