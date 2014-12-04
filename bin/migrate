@@ -6,19 +6,10 @@ if File.exists?(git_path)
   lib_path = File.expand_path('../../lib', __FILE__)
   $:.unshift(lib_path)
 end
-require 'data_mapper'
+
+require 'classless_mud'
 require 'dm-migrations'
-require "classless_mud/version"
-require "classless_mud/player.rb"
-require "classless_mud/world.rb"
-require "classless_mud/game.rb"
-require "classless_mud/room.rb"
-require "classless_mud/exit.rb"
-require "classless_mud/input_parser.rb"
-    DataMapper::Logger.new($stdout, :debug)
-    db_name = YAML.load_file('conf/settings.yml')['db']['name']
-    puts "Using DB:#{db_name}"
-    DataMapper.setup :default, "sqlite3://#{Dir.pwd}/#{db_name}"
-    DataMapper.finalize
+
+ClasslessMud.setup_db!
 DataMapper.auto_upgrade!
 

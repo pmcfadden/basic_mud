@@ -13,12 +13,16 @@ require_relative "classless_mud/exit"
 require_relative "classless_mud/input_parser"
 
 module ClasslessMud
-  def self.start!
+  def self.setup_db!
     DataMapper::Logger.new($stdout, :debug)
     db_name = YAML.load_file('conf/settings.yml')['db']['name']
     puts "Using DB:#{db_name}"
     DataMapper.setup :default, "sqlite3://#{Dir.pwd}/#{db_name}"
     DataMapper.finalize
+  end
+
+  def self.start!
+    setup_db!
 
     room1 = Room.create! description: "You exit an elevator and glance around.  There's a set of glass double doors to the west and an intersection of hallways to the east"
     room2 = Room.create! description: "You are at an intersection of hallways.  Glass double doors lay to the north and south. An extension of the hallway lays to the west"
