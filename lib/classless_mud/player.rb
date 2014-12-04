@@ -45,6 +45,8 @@ module ClasslessMud
             end
           end
         end
+      elsif message == 'character'
+        character_sheet.display
       else
         move message
       end
