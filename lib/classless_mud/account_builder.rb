@@ -1,14 +1,29 @@
 module ClasslessMud
-  class Account
+  class AccountBuilder
     attr_reader :client, :game, :player
 
-    def initialize client, game
+    def self.create client, game, &on_complete
+      builder = self.new(client, game, on_complete)
+      builder.login_or_create
+    end
+
+    def initialize client, game, on_complete
       @client = client
       @game = game
+      @on_complete = on_complete
     end
 
     def logged_in?
       not @player.nil?
+    end
+
+    def login! player
+      @player = player
+      player.client = client
+      player.puts "Logged in as #{player.name}"
+      game.add_player player
+      player.save!
+      @on_complete.call(player)
     end
 
     def login_or_create
@@ -23,15 +38,6 @@ module ClasslessMud
       end
     end
 
-    def handle_message message
-      if logged_in?
-        player.handle_message(message)
-      else
-        client.puts 'Invalid state. Exiting!'
-        client.close_connection
-      end
-    end
-
     def login player
       client.puts "Password:"
       client.on do |password|
@@ -41,14 +47,6 @@ module ClasslessMud
           login_or_create
         end
       end
-    end
-
-    def login! player
-      @player = player
-      player.client = client
-      player.puts "Logged in as #{player.name}"
-      game.add_player player
-      player.save!
     end
 
     def create account_name
@@ -69,7 +67,10 @@ module ClasslessMud
         client.on do |confirm_password|
           if password == confirm_password
             player = Player.new(name: account_name, password: password)
-            login! player
+            player.client = client
+            ::ClasslessMud::CharacterSheetBuilder.create(player) {
+              login! player
+            }
           else
             client.puts "Retrying.."
             create_password account_name

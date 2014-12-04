@@ -1,7 +1,5 @@
 module ClasslessMud
   class Server
-    attr_reader :game
-
     def initialize port, game
       @port = port
       @game = game
@@ -9,8 +7,7 @@ module ClasslessMud
 
     def start
       @signature = EventMachine.start_server('0.0.0.0', @port, ::ClasslessMud::Client) do |client|
-        client.game = game
-        client.start
+        client.start @game
       end
     end
 

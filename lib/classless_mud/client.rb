@@ -11,18 +11,17 @@ module ClasslessMud
 EOS
 
   class Client < EventMachine::Connection
-    attr_accessor :game
-    attr_reader :account
+    attr_reader :player
 
     def initialize
-      @logged_in = false
       @callbacks = []
     end
 
-    def start
+    def start game
       send_data MOTD
-      @account = ::ClasslessMud::Account.new(self, game)
-      account.login_or_create
+      ::ClasslessMud::AccountBuilder.create(self, game) { |player|
+        @player = player
+      }
     end
 
     def receive_data data
@@ -32,7 +31,7 @@ EOS
         callback.call(data)
         return
       end
-      account.handle_message(data)
+      player.handle_message(data)
     end
 
     def on &callback
