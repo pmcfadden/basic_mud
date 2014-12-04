@@ -4,15 +4,10 @@ module ClasslessMud
     property :id, Serial
     property :name, String
     property :password, BCryptHash
+    has 1, :character_sheet, default: CharacterSheet.new
     belongs_to :room
 
     attr_reader :name
-
-    def self.accept client, name
-      player = first(:name => name.chomp) || Player.create(:name => name.chomp)
-      player.client= client
-      player
-    end
 
     def client= client
       @client = client
@@ -24,6 +19,10 @@ module ClasslessMud
 
     def close_client
       @client.close_connection
+    end
+
+    def on &callback
+      @client.on &callback
     end
 
     def handle_message message
@@ -46,6 +45,8 @@ module ClasslessMud
             end
           end
         end
+      elsif message == 'character'
+        character_sheet.display
       else
         move message
       end

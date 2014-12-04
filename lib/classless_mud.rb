@@ -5,12 +5,14 @@ require 'eventmachine'
 require_relative "classless_mud/version"
 require_relative "classless_mud/server"
 require_relative "classless_mud/client"
-require_relative "classless_mud/account"
+require_relative "classless_mud/character_sheet"
 require_relative "classless_mud/player"
 require_relative "classless_mud/world"
 require_relative "classless_mud/game"
 require_relative "classless_mud/room"
 require_relative "classless_mud/exit"
+require_relative "classless_mud/account_builder"
+require_relative "classless_mud/character_sheet_builder"
 require_relative "classless_mud/input_parser"
 
 module ClasslessMud
