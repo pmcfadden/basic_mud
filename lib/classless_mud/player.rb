@@ -21,6 +21,10 @@ module ClasslessMud
       @client.puts message
     end
 
+    def puts_inline message
+      @client.send_data message
+    end
+
     def close_client
       @game.remove_player self
       @client.close_connection
@@ -59,7 +63,6 @@ module ClasslessMud
       else
         move message
       end
-      # prompt here
     end
 
     def move direction
@@ -70,6 +73,10 @@ module ClasslessMud
       else
         puts "You can't go that way."
       end
+    end
+
+    def display_prompt
+      puts_inline "#{name} > "
     end
   end
 end
