@@ -13,11 +13,16 @@ module ClasslessMud
       @client = client
     end
 
+    def game= game
+      @game = game
+    end
+
     def puts message
       @client.puts message
     end
 
     def close_client
+      @game.remove_player self
       @client.close_connection
     end
 
@@ -26,7 +31,9 @@ module ClasslessMud
     end
 
     def handle_message message
-      if message == 'quit'
+      if message.empty?
+        # do nothing
+      elsif message == 'quit'
         puts "Are you sure you want to quit? y/n: "
         @client.on do |response|
           if response == 'y' || response == 'Y'
@@ -35,6 +42,8 @@ module ClasslessMud
             close_client
           end
         end
+      elsif message == 'who'
+        @game.display_players self
       elsif message == 'dance'
         puts 'Are you sure you want to dance? y/n: '
         @client.on do |dance_response|
@@ -50,6 +59,7 @@ module ClasslessMud
       else
         move message
       end
+      # prompt here
     end
 
     def move direction

@@ -20,7 +20,7 @@ module ClasslessMud
 
     def broadcast message
       self.players.each do |occupant|
-        occupant.handle_message message
+        occupant.puts message
       end
     end
 

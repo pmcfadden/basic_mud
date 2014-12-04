@@ -18,6 +18,7 @@ EOS
     end
 
     def start game
+      @game = game
       send_data MOTD
       ::ClasslessMud::AccountBuilder.create(self, game) { |player|
         @player = player

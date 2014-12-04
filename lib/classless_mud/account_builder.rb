@@ -16,6 +16,7 @@ module ClasslessMud
     def login! player
       @player = player
       player.client = client
+      player.game = game
       player.puts "Logged in as #{player.name}"
       game.add_player player
       player.save!
@@ -64,6 +65,7 @@ module ClasslessMud
           if password == confirm_password
             player = Player.new(name: account_name, password: password)
             player.client = client
+            player.game = game
             ::ClasslessMud::CharacterSheetBuilder.create(player) {
               login! player
             }
