@@ -13,10 +13,6 @@ module ClasslessMud
       @on_complete = on_complete
     end
 
-    def logged_in?
-      not @player.nil?
-    end
-
     def login! player
       @player = player
       player.client = client
