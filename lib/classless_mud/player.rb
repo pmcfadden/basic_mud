@@ -36,10 +36,13 @@ module ClasslessMud
           end
         end
       elsif message == 'dance'
-        puts "Are you sure you want to dance? y/n: "
-        @client.on do |response|
-          if response == 'y' || response == 'Y'
-            puts 'You are a dancing fool'
+        puts 'Are you sure you want to dance? y/n: '
+        @client.on do |dance_response|
+          if dance_response == 'y' || dance_response == 'Y'
+            puts 'Well, what kind of dancing? '
+            @client.on do |kind_response|
+              puts "You are a #{kind_response} dancing"
+            end
           end
         end
       else
