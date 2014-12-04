@@ -32,8 +32,8 @@ EOS
         callback.call(data)
       else
         player.handle_message(data)
-        player.display_prompt unless @callbacks.any?
       end
+      player.display_prompt if player
     end
 
     def on &callback
