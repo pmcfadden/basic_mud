@@ -61,17 +61,12 @@ module ClasslessMud
       elsif message == 'character'
         character_sheet.display
       else
-        move message
-      end
-    end
-
-    def move direction
-      valid_exit = self.room.exits.detect {|exit| exit.direction == direction}
-      if valid_exit
-        room.exit self
-        valid_exit.target.enter self
-      else
-        puts "You can't go that way."
+        command = Commands.parse message
+        if command
+          command.perform self, message
+        else
+          puts "I don't understand what you mean"
+        end
       end
     end
 

@@ -1,7 +1,6 @@
 module ClasslessMud
   class Game
     def initialize world
-      @input_parser = InputParser.new
       @players = []
       @world = world
     end
