@@ -48,16 +48,6 @@ module ClasslessMud
         end
       elsif message == 'who'
         @game.display_players self
-      elsif message == 'dance'
-        puts 'Are you sure you want to dance? y/n: '
-        @client.on do |dance_response|
-          if dance_response == 'y' || dance_response == 'Y'
-            puts 'Well, what kind of dancing? '
-            @client.on do |kind_response|
-              puts "You are a #{kind_response} dancing"
-            end
-          end
-        end
       elsif message == 'character'
         character_sheet.display
       else

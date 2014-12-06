@@ -5,6 +5,7 @@ module ClasslessMud
       'west' => Move,
       'south' => Move,
       'east' => Move,
+      'dance' => Dance,
     }
 
     def self.parse data

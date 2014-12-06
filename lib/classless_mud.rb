@@ -13,6 +13,7 @@ require_relative "classless_mud/room"
 require_relative "classless_mud/exit"
 require_relative "classless_mud/account_builder"
 require_relative "classless_mud/character_sheet_builder"
+require_relative "classless_mud/commands/dance"
 require_relative "classless_mud/commands/move"
 require_relative "classless_mud/command"
 
