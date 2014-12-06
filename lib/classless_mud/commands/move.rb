@@ -1,7 +1,7 @@
 module ClasslessMud
   module Commands
     class Move
-      def self.perform player, message
+      def self.perform game, player, message
         direction = message.split[0]
         valid_exit = player.room.exits.detect {|exit| exit.direction == direction}
         if valid_exit

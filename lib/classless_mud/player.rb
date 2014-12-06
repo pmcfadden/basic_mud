@@ -37,23 +37,10 @@ module ClasslessMud
     def handle_message message
       if message.empty?
         # do nothing
-      elsif message == 'quit'
-        puts "Are you sure you want to quit? y/n: "
-        @client.on do |response|
-          if response == 'y' || response == 'Y'
-            puts "Thanks for playing"
-            room.exit self
-            close_client
-          end
-        end
-      elsif message == 'who'
-        @game.display_players self
-      elsif message == 'character'
-        character_sheet.display
       else
         command = Commands.parse message
         if command
-          command.perform self, message
+          command.perform @game, self, message
         else
           puts "I don't understand what you mean"
         end

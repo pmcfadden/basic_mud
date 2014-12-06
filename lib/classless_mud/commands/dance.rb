@@ -1,7 +1,7 @@
 module ClasslessMud
   module Commands
     class Dance
-      def self.perform player, message
+      def self.perform game, player, message
         player.puts 'Are you sure you want to dance? y/n: '
         player.on do |dance_response|
           if dance_response == 'y' || dance_response == 'Y'
