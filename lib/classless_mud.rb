@@ -18,7 +18,7 @@ require_relative "classless_mud/commands/dance"
 require_relative "classless_mud/commands/move"
 require_relative "classless_mud/commands/quit"
 require_relative "classless_mud/commands/who"
-require_relative "classless_mud/command"
+require_relative "classless_mud/commands"
 
 module ClasslessMud
   def self.setup_db!
