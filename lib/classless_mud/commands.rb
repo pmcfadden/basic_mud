@@ -9,6 +9,7 @@ module ClasslessMud
       'who' => Who,
       'quit' => Quit,
       'character' => Character,
+      'say' => Say,
     }
 
     def self.parse data

@@ -24,6 +24,16 @@ module ClasslessMud
       end
     end
 
+    def broadcast_say from, message
+      self.players.each do |player|
+        if player == from
+          player.puts "You say '#{message}'"
+        else
+          player.puts "#{from.name} says '#{message}'"
+        end
+      end
+    end
+
     def handle_message message
       broadcast message
     end
