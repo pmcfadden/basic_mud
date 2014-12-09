@@ -1,11 +1,10 @@
+require 'dm-migrations'
 require_relative '../lib/classless_mud'
-namespace :db do
-  task :setup do
-    DataMapper::Logger.new($stdout, :debug)
-    db_name = YAML.load_file('conf/settings.yml')['db']['name']
-    DataMapper.setup :default, "sqlite3://#{Dir.pwd}/#{db_name}"
-    DataMapper.finalize
-    DataMapper.auto_migrate!
 
+namespace :db do
+  desc 'Sets up the sqlite database with needed migrations from the data model'
+  task :setup do
+    ClasslessMud.setup_db!
+    DataMapper.auto_upgrade!
   end
 end
