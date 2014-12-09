@@ -38,12 +38,7 @@ module ClasslessMud
       if message.empty?
         # do nothing
       else
-        command = Commands.parse message
-        if command
-          command.perform @game, self, message
-        else
-          puts "I don't understand what you mean"
-        end
+        Commands.parse(message).perform @game, self, message
       end
     end
 
