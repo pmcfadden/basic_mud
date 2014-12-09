@@ -1,6 +1,8 @@
 require 'socket'
 require 'data_mapper'
 require 'eventmachine'
+require 'active_support'
+require 'active_support/core_ext'
 
 require_relative "classless_mud/version"
 require_relative "classless_mud/server"
@@ -13,13 +15,7 @@ require_relative "classless_mud/room"
 require_relative "classless_mud/exit"
 require_relative "classless_mud/account_builder"
 require_relative "classless_mud/character_sheet_builder"
-require_relative "classless_mud/commands/character"
-require_relative "classless_mud/commands/dance"
-require_relative "classless_mud/commands/look"
-require_relative "classless_mud/commands/move"
-require_relative "classless_mud/commands/quit"
-require_relative "classless_mud/commands/say"
-require_relative "classless_mud/commands/who"
+Dir[File.dirname(__FILE__) + '/classless_mud/commands/*.rb'].each { |f| require f }
 require_relative "classless_mud/commands"
 
 module ClasslessMud
