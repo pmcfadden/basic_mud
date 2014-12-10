@@ -47,10 +47,6 @@ module ClasslessMud
       puts_inline "#{name} > "
     end
 
-    def first_time_setup
-      self.health = max_health
-    end
-
     def max_health
       10 * character_sheet.strength
     end
