@@ -67,6 +67,7 @@ module ClasslessMud
             player.client = client
             player.game = game
             ::ClasslessMud::CharacterSheetBuilder.create(player) {
+              player.first_time_setup
               login! player
             }
           else

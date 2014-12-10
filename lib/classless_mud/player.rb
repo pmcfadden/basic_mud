@@ -4,6 +4,7 @@ module ClasslessMud
     property :id, Serial
     property :name, String
     property :password, BCryptHash
+    property :health, Integer
     has 1, :character_sheet, default: CharacterSheet.new
     belongs_to :room
 
@@ -44,6 +45,14 @@ module ClasslessMud
 
     def display_prompt
       puts_inline "#{name} > "
+    end
+
+    def first_time_setup
+      self.health = max_health
+    end
+
+    def max_health
+      10 * character_sheet.strength
     end
   end
 end
