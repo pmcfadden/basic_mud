@@ -4,11 +4,14 @@ module ClasslessMud
     class Commands
       COMMANDS_TO_HIDE = [BadCommand]
 
+      def self.commands
+        ClasslessMud::Commands.constants
+           .select { |c| Class === ClasslessMud::Commands.const_get(c) }
+           .reject { |c| COMMANDS_TO_HIDE.include?(ClasslessMud::Commands.const_get(c)) }
+           .map { |c| c.to_s.downcase }
+      end
+
       def self.perform game, player, message
-        commands = ClasslessMud::Commands.constants
-                     .select { |c| Class === ClasslessMud::Commands.const_get(c) }
-                     .reject { |c| COMMANDS_TO_HIDE.include?(ClasslessMud::Commands.const_get(c)) }
-                     .map { |c| c.to_s.downcase }
         player.puts columnize(commands)
       end
 
