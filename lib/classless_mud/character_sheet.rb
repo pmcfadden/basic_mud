@@ -1,6 +1,8 @@
 module ClasslessMud
   class CharacterSheet
+    include ClasslessMud::Colorizer
     include DataMapper::Resource
+
     property :id, Serial
     property :strength, Integer, default: 10
     property :agility, Integer, default: 10
@@ -11,13 +13,13 @@ module ClasslessMud
 
     def display
       player.puts <<EOS
-#{player.name} - #{race}
+#{green(player.name)} - #{red(race)}
 
-Strength:     #{strength}
-Agility:      #{agility}
-Intelligence: #{intelligence}
+#{green('Strength')}:     #{red(strength)}
+#{green('Agility')}:      #{red(agility)}
+#{green('Intelligence')}: #{red(intelligence)}
 
-Superpowers: none
+#{green('Superpowers')}: #{red('none')}
 EOS
     end
   end
