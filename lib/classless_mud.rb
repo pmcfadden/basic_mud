@@ -7,6 +7,7 @@ require 'active_support/core_ext'
 require_relative "classless_mud/version"
 require_relative "classless_mud/server"
 require_relative "classless_mud/client"
+require_relative "classless_mud/colorizer"
 require_relative "classless_mud/character_sheet"
 require_relative "classless_mud/player"
 require_relative "classless_mud/world"
