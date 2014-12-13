@@ -22,9 +22,13 @@ Dir[File.dirname(__FILE__) + '/classless_mud/commands/admin/*.rb'].each { |f| re
 require_relative "classless_mud/commands"
 
 module ClasslessMud
+  def self.settings
+    @settings ||= YAML.load_file('conf/settings.yml')
+  end
+
   def self.setup_db!
     DataMapper::Logger.new($stdout, :debug)
-    db_name = YAML.load_file('conf/settings.yml')['db']['name']
+    db_name = settings['db']['name']
     puts "Using DB:#{db_name}"
     DataMapper.setup :default, "sqlite3://#{Dir.pwd}/#{db_name}"
     DataMapper.finalize
@@ -38,7 +42,7 @@ module ClasslessMud
     room1.exits.create! direction: 'east', target: room2
     room2.exits.create! direction: 'west', target: room1
     world = World.new [room1, room2]
-    game = Game.new world
+    game = Game.new world, settings
 
     EventMachine::run {
       puts "Starting server on port 2000"
