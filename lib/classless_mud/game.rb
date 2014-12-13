@@ -1,5 +1,7 @@
 module ClasslessMud
   class Game
+    attr_reader :players
+
     def initialize world
       @players = []
       @world = world
