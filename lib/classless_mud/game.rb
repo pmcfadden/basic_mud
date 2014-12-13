@@ -1,10 +1,12 @@
 module ClasslessMud
   class Game
     attr_reader :players
+    attr_reader :settings
 
-    def initialize world
+    def initialize world, settings
       @players = []
       @world = world
+      @settings = settings
     end
 
     def add_player player
