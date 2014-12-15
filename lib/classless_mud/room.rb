@@ -38,5 +38,12 @@ module ClasslessMud
     def handle_message message
       broadcast message
     end
+
+    def find keywords
+      keywords_array = keywords.split
+      items.detect do |item|
+        (item.keywords.split & keywords_array).any?
+      end
+    end
   end
 end

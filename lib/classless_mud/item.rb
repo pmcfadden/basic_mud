@@ -4,6 +4,7 @@ module ClasslessMud
     property :id, Serial
     property :type, Discriminator
     property :name, String
-    property :description, String
+    property :short_description, String
+    property :keywords, String
   end
 end
