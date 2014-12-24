@@ -39,8 +39,8 @@ module ClasslessMud
   def self.start!
     setup_db!
 
-    chocolate = Edible.new name: "Good Chocolate", short_description: "a pristine bar of chocolate", health_effect: 20, effect_description: "You munch on the bar of chocolate and feel refreshed.", keywords: "pristine bar chocolate"
-    bad_chocolate = Edible.new name: "Bad Chocolate", short_description: "a sketchy bar of chocolate", health_effect: -20, effect_description: "Despite better judgment, you bite into the open bar of chocolate.  It's filled with razor blades.", keywords: "sketchy bar chocolate"
+    chocolate = Item.new name: "Good Chocolate", short_description: "a pristine bar of chocolate", health_effect: 20, effect_description: "You munch on the bar of chocolate and feel refreshed.", keywords: "pristine bar chocolate", edible: true
+    bad_chocolate = Item.new name: "Bad Chocolate", short_description: "a sketchy bar of chocolate", health_effect: -20, effect_description: "Despite better judgment, you bite into the open bar of chocolate.  It's filled with razor blades.", keywords: "sketchy bar chocolate", edible: true
     room1 = Room.create! description: "There's a set of glass double doors to the west and an intersection of hallways to the east."
     room2 = Room.create! description: "You are at an intersection of hallways.  Glass double doors lay to the north and south. An extension of the hallway lays to the west."
     room1.items << bad_chocolate
