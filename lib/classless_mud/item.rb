@@ -7,11 +7,15 @@ module ClasslessMud
     property :short_description, String
     property :keywords, String
     property :edible, Boolean, default: false
-    property :health_effect, Integer, default: 0
-    property :effect_description, String, default: ''
+
+    has n, :effects
 
     def edible?
       edible
+    end
+
+    def affect player
+      effects.each { |effect| effect.affect(player) }
     end
   end
 end
