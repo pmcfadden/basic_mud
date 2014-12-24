@@ -7,7 +7,9 @@ module ClasslessMud
     property :health, Integer
     property :level, Integer, default: 1
 
+    has n, :items
     has 1, :character_sheet, default: CharacterSheet.new
+
     belongs_to :room
 
     attr_reader :name
