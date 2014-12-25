@@ -6,9 +6,9 @@ module ClasslessMud
     property :health_modification, Integer, default: 0
 
     def affect player
-      player.health = player.health + health_modification
-      player.save!
       player.puts description
+      player.affect_health health_modification
+      player.save!
     end
   end
 end

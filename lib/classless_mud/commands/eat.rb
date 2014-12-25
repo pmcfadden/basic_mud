@@ -8,10 +8,10 @@ module ClasslessMud
           player.puts "You do not have that"
         else
           if found.edible?
+            player.puts "You eat #{found.name}."
             found.affect(player)
             player.items.delete found
             player.items.save!
-            player.puts "You eat #{found.name}."
           else
             player.puts "You cannot eat that!"
           end

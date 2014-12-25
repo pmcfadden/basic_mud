@@ -54,5 +54,14 @@ module ClasslessMud
     def max_health
       10 * character_sheet.strength
     end
+
+    def affect_health amount
+      self.health += amount
+      if amount > 0
+        self.puts "You are healed for #{amount} health."
+      else
+        self.puts "You take #{amount.abs} damage."
+      end
+    end
   end
 end
