@@ -10,7 +10,9 @@ require_relative "classless_mud/client"
 require_relative "classless_mud/colorizer"
 require_relative "classless_mud/character_sheet"
 require_relative "classless_mud/item"
+require_relative "classless_mud/character"
 require_relative "classless_mud/player"
+require_relative "classless_mud/npc"
 require_relative "classless_mud/world"
 require_relative "classless_mud/game"
 require_relative "classless_mud/room"
@@ -51,6 +53,7 @@ module ClasslessMud
     room2.items << chocolate
     room1.exits.create! direction: 'east', target: room2
     room2.exits.create! direction: 'west', target: room1
+    goblin = NPC.new name: 'Goblin', health: 90, level: 2
     world = World.new [room1, room2]
     game = Game.new world, settings
 
