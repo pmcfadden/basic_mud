@@ -32,8 +32,10 @@ module ClasslessMud
       self.health += amount
       if amount > 0
         self.puts "You are healed for #{amount} health."
+        self.puts "You have #{health} health"
       else
         self.puts "You take #{amount.abs} damage."
+        self.puts "You have #{health} health"
       end
     end
   end
