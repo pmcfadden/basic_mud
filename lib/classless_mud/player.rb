@@ -32,5 +32,9 @@ module ClasslessMud
     def max_health
       10 * character_sheet.strength
     end
+
+    def look
+      handle_message "look"
+    end
   end
 end

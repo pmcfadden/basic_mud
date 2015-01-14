@@ -11,7 +11,7 @@ module ClasslessMud
     def enter player
       broadcast "#{player.name} entered the room"
       self.players << player
-      player.puts description
+      player.look
     end
 
     def exit player
