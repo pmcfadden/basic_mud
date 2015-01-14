@@ -11,12 +11,15 @@ module ClasslessMud
       end
 
       def self.look_around player
-        items = player.room.items.map do |item|
-          item.short_description
-        end.join(", ")
-
         player.puts player.room.description
-        player.puts "You also see: #{items}"
+
+        if player.room.items.any?
+          items = player.room.items.map do |item|
+            item.short_description
+          end.join(", ")
+
+          player.puts "You also see: #{items}"
+        end
       end
 
       def self.look_at player, look_target
