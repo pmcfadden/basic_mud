@@ -36,7 +36,12 @@ module ClasslessMud
       else
         self.puts "You take #{amount.abs} damage."
         self.puts "You have #{health} health"
+        die if dead?
       end
+    end
+
+    def dead?
+      health <= 0
     end
   end
 end

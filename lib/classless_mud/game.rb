@@ -12,8 +12,12 @@ module ClasslessMud
     def add_player player
       @players << player
       @world.add_player player
-      @world.starting_room.enter player
+      starting_room.enter player
       broadcast "#{player.name} has joined the game."
+    end
+
+    def starting_room
+      @world.starting_room
     end
 
     def remove_player player

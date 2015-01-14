@@ -36,5 +36,14 @@ module ClasslessMud
     def look
       handle_message "look"
     end
+
+    def die
+      self.puts "You dead. Respawning..."
+      GameMaster.respawn_player self
+    end
+
+    def respawn_room
+      @game.starting_room
+    end
   end
 end
