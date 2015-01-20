@@ -53,7 +53,8 @@ module ClasslessMud
     room2.items << chocolate
     room1.exits.create! direction: 'east', target: room2
     room2.exits.create! direction: 'west', target: room1
-    goblin = NPC.new name: 'Goblin', health: 90, level: 2
+    goblin = Npc.new name: 'Goblin', health: 90, level: 2
+    room1.npcs << goblin
     world = World.new [room1, room2]
     game = Game.new world, settings
 

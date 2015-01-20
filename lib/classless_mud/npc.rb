@@ -1,5 +1,5 @@
 module ClasslessMud
-  class NPC
+  class Npc
     include DataMapper::Resource
     include ClasslessMud::Character
   end

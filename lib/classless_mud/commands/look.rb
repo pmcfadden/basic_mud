@@ -20,6 +20,14 @@ module ClasslessMud
 
           player.puts "You also see: #{items}"
         end
+
+        if player.room.characters.any?
+          characters = player.room.characters.map do |character|
+            character.name
+          end.join(", ")
+
+          player.puts "Here: #{characters}"
+        end
       end
 
       def self.look_at player, look_target

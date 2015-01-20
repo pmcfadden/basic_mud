@@ -4,6 +4,7 @@ module ClasslessMud
     property :id, Serial
     property :description, String
     has n, :players
+    has n, :npcs
     has n, :exits, :child_key => [ :source_id ]
     has n, :connected_rooms, self, :through => :exits, :via => :target
     has n, :items
@@ -12,6 +13,10 @@ module ClasslessMud
       broadcast "#{player.name} entered the room"
       self.players << player
       player.look
+    end
+
+    def characters
+      npcs.to_a + players.to_a
     end
 
     def exit player
