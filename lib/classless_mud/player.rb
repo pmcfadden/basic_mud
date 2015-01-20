@@ -17,6 +17,14 @@ module ClasslessMud
       @client.on &callback
     end
 
+    def puts message
+      @client.puts message
+    end
+
+    def puts_inline message
+      @client.send_data message
+    end
+
     def handle_message message
       if message.empty?
         # do nothing

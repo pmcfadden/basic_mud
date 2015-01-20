@@ -20,14 +20,6 @@ module ClasslessMud
       @game = game
     end
 
-    def puts message
-      @client.puts message
-    end
-
-    def puts_inline message
-      @client.send_data message
-    end
-
     def affect_health amount
       self.health += amount
       if amount > 0

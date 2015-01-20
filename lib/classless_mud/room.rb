@@ -50,5 +50,11 @@ module ClasslessMud
         (item.keywords.split & keywords_array).any?
       end
     end
+
+    def find_character keyword
+      characters.detect do |character|
+        character.name.include? keyword
+      end
+    end
   end
 end
