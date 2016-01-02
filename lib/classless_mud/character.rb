@@ -24,6 +24,10 @@ module ClasslessMud
       @game = game
     end
 
+    def current_fight
+      @current_fight || Fight.new(self, EmptyCharacter.new)
+    end
+
     def affect_health amount
       self.health += amount
       if amount > 0
@@ -36,8 +40,14 @@ module ClasslessMud
       end
     end
 
-    def fight!
+    def fight!(fight)
       self.state = FIGHT
+      @current_fight = fight
+    end
+
+    def end_fight!
+      self.state = NORMAL
+      @current_fight = nil
     end
 
     def dead?

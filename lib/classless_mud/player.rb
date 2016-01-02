@@ -28,10 +28,14 @@ module ClasslessMud
     end
 
     def handle_message message
-      if message.empty?
-        # do nothing
+      if state == Character::FIGHT
+        FightCommands.parse(message).perform @game, self, current_fight, message
       else
-        Commands.parse(message).perform @game, self, message
+        if message.empty?
+          # do nothing
+        else
+          Commands.parse(message).perform @game, self, message
+        end
       end
     end
 
