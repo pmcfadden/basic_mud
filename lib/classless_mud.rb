@@ -21,6 +21,9 @@ require_relative "classless_mud/account_builder"
 require_relative "classless_mud/character_sheet_builder"
 require_relative "classless_mud/game_master"
 require_relative "classless_mud/effect"
+require_relative "classless_mud/fight"
+require_relative "classless_mud/fight_factory"
+require_relative "classless_mud/fight_round"
 Dir[File.dirname(__FILE__) + '/classless_mud/commands/*.rb'].each { |f| require f }
 Dir[File.dirname(__FILE__) + '/classless_mud/commands/admin/*.rb'].each { |f| require f }
 require_relative "classless_mud/commands"

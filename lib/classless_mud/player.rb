@@ -2,6 +2,8 @@ module ClasslessMud
   class Player
     include DataMapper::Resource
     include ClasslessMud::Character
+    include ClasslessMud::Colorizer
+
     property :password, DataMapper::Property::BCryptHash
 
     def client= client
@@ -34,7 +36,15 @@ module ClasslessMud
     end
 
     def display_prompt
-      puts_inline "#{name} > "
+      puts_inline "#{name} #{fighting_prompt}> "
+    end
+
+    def fighting_prompt
+      if state == Character::FIGHT
+        red('(Fighting) ')
+      else
+        ''
+      end
     end
 
     def max_health
