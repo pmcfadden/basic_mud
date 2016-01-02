@@ -4,20 +4,28 @@ module ClasslessMud
   module Character
     extend ActiveSupport::Concern
 
+    FIGHT = 'fight'
+    NORMAL = 'normal'
+
     included do
       property :id, DataMapper::Property::Serial
       property :name, DataMapper::Property::String
       property :health, DataMapper::Property::Integer
       property :level, DataMapper::Property::Integer, default: 1
+      property :state, DataMapper::Property::String, default: NORMAL
 
       has n, :items
-      has 1, :character_sheet, default: CharacterSheet.new
+      has 1, :character_sheet, default: CharacterSheet.new, child_key: :player_id
 
       belongs_to :room
     end
 
     def game= game
       @game = game
+    end
+
+    def current_fight
+      @current_fight || Fight.new(self, EmptyCharacter.new)
     end
 
     def affect_health amount
@@ -30,6 +38,16 @@ module ClasslessMud
         self.puts "You have #{health} health"
         die if dead?
       end
+    end
+
+    def fight!(fight)
+      self.state = FIGHT
+      @current_fight = fight
+    end
+
+    def end_fight!
+      self.state = NORMAL
+      @current_fight = nil
     end
 
     def dead?

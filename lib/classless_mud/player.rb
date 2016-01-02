@@ -2,6 +2,8 @@ module ClasslessMud
   class Player
     include DataMapper::Resource
     include ClasslessMud::Character
+    include ClasslessMud::Colorizer
+
     property :password, DataMapper::Property::BCryptHash
 
     def client= client
@@ -26,15 +28,27 @@ module ClasslessMud
     end
 
     def handle_message message
-      if message.empty?
-        # do nothing
+      if state == Character::FIGHT
+        FightCommands.parse(message).perform @game, self, current_fight, message
       else
-        Commands.parse(message).perform @game, self, message
+        if message.empty?
+          # do nothing
+        else
+          Commands.parse(message).perform @game, self, message
+        end
       end
     end
 
     def display_prompt
-      puts_inline "#{name} > "
+      puts_inline "#{name} #{fighting_prompt}> "
+    end
+
+    def fighting_prompt
+      if state == Character::FIGHT
+        red('(Fighting) ')
+      else
+        ''
+      end
     end
 
     def max_health

@@ -4,7 +4,9 @@ module ClasslessMud
       'north' => Move,
       'west' => Move,
       'south' => Move,
-      'east' => Move
+      'east' => Move,
+      'kill' => Fight,
+      'attack' => Fight
     }
 
     def self.parse data
