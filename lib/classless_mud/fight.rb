@@ -16,5 +16,12 @@ module ClasslessMud
         @one
       end
     end
+
+    def attack!
+      damage_by_one = Dice.create('1d4+0').roll * -1
+      damage_by_two = Dice.create('1d4+0').roll * -1
+      @two.affect_health damage_by_one
+      @one.affect_health damage_by_two
+    end
   end
 end
