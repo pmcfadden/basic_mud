@@ -34,7 +34,9 @@ You can
 
   class Attack
     def perform(game, player, fight, message)
-      player.puts "Not implemented yet!"
+      player.puts 'You attack!'
+      fight.other(player).puts "#{player.name} attacks you!"
+      fight.attack!
     end
   end
 end
