@@ -1,1 +1,1 @@
-server: bin/classless_mud
+web: bin/classless_mud
