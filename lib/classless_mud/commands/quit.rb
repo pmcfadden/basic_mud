@@ -8,6 +8,7 @@ module ClasslessMud
             player.puts "Thanks for playing"
             player.room.exit self
             player.close_client
+            player.save!
           end
         end
       end

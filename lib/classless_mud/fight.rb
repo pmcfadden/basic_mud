@@ -18,10 +18,22 @@ module ClasslessMud
     end
 
     def attack!
-      damage_by_one = Dice.create('1d4+0').roll * -1
-      damage_by_two = Dice.create('1d4+0').roll * -1
-      @two.affect_health damage_by_one
-      @one.affect_health damage_by_two
+      damage_by_one = Dice.create('3d4+0').roll
+      damage_by_two = Dice.create('3d4+0').roll
+      @two.puts "You do #{damage_by_two} damage to #{@one.name}."
+      @one.puts "You do #{damage_by_one} damage to #{@two.name}."
+      @two.affect_health damage_by_one * -1
+      @one.affect_health damage_by_two * -1
+      if @one.dead?
+        @one.die
+        @two.puts "You killed #{@one.name}."
+        @two.end_fight!
+      end
+      if @two.dead?
+        @two.die
+        @one.puts "You killed #{@two.name}."
+        @one.end_fight!
+      end
     end
   end
 end
