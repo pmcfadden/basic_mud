@@ -2,7 +2,6 @@ module ClasslessMud
   class Player
     include DataMapper::Resource
     include ClasslessMud::Character
-    include ClasslessMud::Colorizer
 
     property :password, DataMapper::Property::BCryptHash
 
@@ -45,14 +44,11 @@ module ClasslessMud
 
     def fighting_prompt
       if state == Character::FIGHT
-        red('(Fighting) ')
+        percent_health = current_fight.other(self).percent_health
+        "(#{red('Fighting')} - #{percent_health}) "
       else
         ''
       end
-    end
-
-    def max_health
-      10 * character_sheet.strength
     end
 
     def look
@@ -61,6 +57,7 @@ module ClasslessMud
 
     def die
       self.puts "You dead. Respawning..."
+      self.state = NORMAL
       GameMaster.respawn_player self
     end
 

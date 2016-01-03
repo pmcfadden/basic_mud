@@ -8,5 +8,9 @@ module ClasslessMud
 
     def puts_inline message
     end
+
+    def die
+      self.save!
+    end
   end
 end

@@ -10,5 +10,9 @@ module ClasslessMud
     def puts message
       # Do nothing
     end
+
+    def percent_health
+      '0%'
+    end
   end
 end

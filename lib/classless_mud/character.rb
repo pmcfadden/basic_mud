@@ -3,6 +3,7 @@ module ClasslessMud
   # and NPC
   module Character
     extend ActiveSupport::Concern
+    include ClasslessMud::Colorizer
 
     FIGHT = 'fight'
     NORMAL = 'normal'
@@ -26,6 +27,21 @@ module ClasslessMud
 
     def current_fight
       @current_fight || Fight.new(self, EmptyCharacter.new)
+    end
+
+    def max_health
+      10 * character_sheet.strength
+    end
+
+    def percent_health
+      percent = ((health.to_d / max_health.to_d) * 100).to_i
+      if percent > 80
+        green("#{percent}%")
+      elsif percent > 40
+        yellow("#{percent}%")
+      else
+        red("#{percent}%")
+      end
     end
 
     def affect_health amount
