@@ -25,6 +25,10 @@ module ClasslessMud
       @game = game
     end
 
+    def damage_die
+      "1d4+#{character_sheet.strength || 0}"
+    end
+
     def current_fight
       @current_fight || Fight.new(self, EmptyCharacter.new)
     end
