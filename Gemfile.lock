@@ -4,12 +4,13 @@ PATH
     classless_mud (0.0.1)
       activesupport
       datamapper
+      dm-postgres-adapter
       eventmachine
 
 GEM
   remote: https://rubygems.org/
   specs:
-    activesupport (4.2.4)
+    activesupport (4.2.5)
       i18n (~> 0.7)
       json (~> 1.7, >= 1.7.7)
       minitest (~> 5.1)
@@ -44,6 +45,9 @@ GEM
       dm-core (~> 1.2.0)
     dm-migrations (1.2.0)
       dm-core (~> 1.2.0)
+    dm-postgres-adapter (1.2.0)
+      dm-do-adapter (~> 1.2.0)
+      do_postgres (~> 0.10.6)
     dm-serializer (1.2.2)
       dm-core (~> 1.2.0)
       fastercsv (~> 1.5)
@@ -67,13 +71,15 @@ GEM
       uuidtools (~> 2.1)
     dm-validations (1.2.0)
       dm-core (~> 1.2.0)
+    do_postgres (0.10.16)
+      data_objects (= 0.10.16)
     do_sqlite3 (0.10.16)
       data_objects (= 0.10.16)
     eventmachine (1.0.8)
     fastercsv (1.5.5)
     i18n (0.7.0)
     json (1.8.3)
-    json_pure (1.8.2)
+    json_pure (1.8.3)
     method_source (0.8.2)
     minitest (5.8.3)
     multi_json (1.11.2)
