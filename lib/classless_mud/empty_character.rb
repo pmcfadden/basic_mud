@@ -1,10 +1,9 @@
 module ClasslessMud
   class EmptyCharacter
-    include DataMapper::Resource
-    include ClasslessMud::Character
+    attr_reader :name
 
     def initialize
-      self.name = 'Unknown'
+      @name = 'Unknown'
     end
 
     def puts message
@@ -13,6 +12,22 @@ module ClasslessMud
 
     def percent_health
       '0%'
+    end
+
+    def damage_die
+      '1d1+0'
+    end
+
+    def affect_health amount
+      # Do nothing
+    end
+
+    def dead?
+      true
+    end
+
+    def die
+      # Do nothing
     end
   end
 end

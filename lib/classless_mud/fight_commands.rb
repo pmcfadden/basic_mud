@@ -17,7 +17,7 @@ module ClasslessMud
 #{fight.title}
 You can
  * flee   :: Run away from the fight
- * attack :: Roll a 1d4 dice for damage
+ * attack :: Roll a #{player.damage_die} for damage
       EOS
     end
   end
