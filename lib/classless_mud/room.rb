@@ -2,7 +2,7 @@ module ClasslessMud
   class Room
     include DataMapper::Resource
     property :id, Serial
-    property :description, String
+    property :description, Text
     has n, :players
     has n, :npcs
     has n, :exits, :child_key => [ :source_id ]
