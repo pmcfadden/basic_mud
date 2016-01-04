@@ -29,5 +29,9 @@ module ClasslessMud
     def die
       # Do nothing
     end
+
+    def end_fight!
+      # Do nothing
+    end
   end
 end
