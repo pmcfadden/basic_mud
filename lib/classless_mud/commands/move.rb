@@ -7,6 +7,7 @@ module ClasslessMud
         if valid_exit
           player.room.exit player
           valid_exit.target.enter player
+          player.save!
         else
           player.puts "You can't go that way."
         end
