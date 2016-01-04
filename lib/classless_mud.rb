@@ -31,15 +31,30 @@ Dir[File.dirname(__FILE__) + '/classless_mud/commands/admin/*.rb'].each { |f| re
 require_relative "classless_mud/commands"
 
 module ClasslessMud
+  def self.environment
+    @environment || 'development'
+  end
+
   def self.settings
     @settings ||= YAML.load_file('conf/settings.yml')
   end
 
+  def self.db_url
+    if ENV['RACK_ENV'] == 'production'
+      ENV['DATABASE_URL']
+    else
+      "sqlite3://#{Dir.pwd}/#{settings['db']['name']}"
+    end
+  end
+
+  def self.port
+    ENV['PORT'] || 2000
+  end
+
   def self.setup_db!
     DataMapper::Logger.new($stdout, :debug)
-    db_name = settings['db']['name']
-    puts "Using DB:#{db_name}"
-    DataMapper.setup :default, "sqlite3://#{Dir.pwd}/#{db_name}"
+    puts "Using DB:#{db_url}"
+    DataMapper.setup :default, db_url
     DataMapper.finalize
   end
 
@@ -64,8 +79,8 @@ module ClasslessMud
     game = Game.new world, settings
 
     EventMachine::run {
-      puts "Starting server on port 2000"
-      ::ClasslessMud::Server.new(2000, game).start
+      puts "Starting server on port #{port}"
+      ::ClasslessMud::Server.new(port, game).start
     }
   end
 end

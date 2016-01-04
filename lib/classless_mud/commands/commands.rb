@@ -1,8 +1,10 @@
+require_relative 'bad_command'
+
 module ClasslessMud
   module Commands
     # This is the commands command. The naming is weird, but this lists out all available commands
     class Commands
-      COMMANDS_TO_HIDE = [BadCommand]
+      COMMANDS_TO_HIDE = [ClasslessMud::Commands::BadCommand]
 
       def self.commands
         ClasslessMud::Commands.constants
