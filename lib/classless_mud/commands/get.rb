@@ -3,7 +3,7 @@ module ClasslessMud
     class Get
       def self.perform game, player, message
         get_command, get_target = message.split " ", 2
-        found = player.room.find get_target
+        found = get_target ? player.room.find(get_target) : false
         if found
           player.items << found
           player.room.items.delete found
