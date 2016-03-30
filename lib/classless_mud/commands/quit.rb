@@ -6,7 +6,7 @@ module ClasslessMud
         player.on do |response|
           if response == 'y' || response == 'Y'
             player.puts "Thanks for playing"
-            player.room.exit self
+            player.room.exit player
             player.close_client
             player.save!
           end
