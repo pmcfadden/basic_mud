@@ -3,11 +3,12 @@ module ClasslessMud
     class Move
       def self.perform game, player, message
         direction = message.split[0]
-        valid_exit = player.room.exits.detect {|exit| exit.direction == direction}
-        if valid_exit
+        found_exit = player.room.exits.detect {|exit| exit.direction == direction}
+        room_id = found_exit ? found_exit.target.id : nil
+        if room_id
+          valid_exit = game.world.find_room(room_id)
           player.room.exit player
-          valid_exit.target.enter player
-          player.save!
+          valid_exit.enter player
         else
           player.puts "You can't go that way."
         end
@@ -15,3 +16,4 @@ module ClasslessMud
     end
   end
 end
+

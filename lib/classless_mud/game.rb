@@ -2,6 +2,7 @@ module ClasslessMud
   class Game
     attr_reader :players
     attr_reader :settings
+    attr_reader :world
 
     def initialize world, settings
       @players = []
@@ -11,8 +12,12 @@ module ClasslessMud
 
     def add_player player
       @players << player
-      @world.add_player player
-      starting_room.enter player unless player.room_id
+      player_room = player.room
+      if player_room
+        player_room.enter player
+      else
+        starting_room.enter player
+      end
       broadcast "#{player.name} has joined the game."
     end
 

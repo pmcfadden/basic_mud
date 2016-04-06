@@ -6,5 +6,6 @@ namespace :db do
   task :setup do
     ClasslessMud.setup_db!
     DataMapper.auto_upgrade!
+    ClasslessMud.setup_data!
   end
 end

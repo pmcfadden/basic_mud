@@ -8,7 +8,6 @@ module ClasslessMud
           player.items << found
           player.room.items.delete found
           player.items.save!
-          player.room.items.save!
           player.room.broadcast "#{player.name} picks up #{found.name}"
           player.puts "You pick up #{found.name}"
         else

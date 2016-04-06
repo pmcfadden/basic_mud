@@ -2,8 +2,9 @@ module ClasslessMud
   class Effect
     include DataMapper::Resource
     property :id, Serial
-    property :description, String
+    property :description, String, :length => 255
     property :health_modification, Integer, default: 0
+    belongs_to :item, :required => false
 
     def affect player
       player.puts description

@@ -3,16 +3,40 @@ module ClasslessMud
     include DataMapper::Resource
     property :id, Serial
     property :description, Text
-    has n, :players
-    has n, :npcs
     has n, :exits, :child_key => [ :source_id ]
     has n, :connected_rooms, self, :through => :exits, :via => :target
-    has n, :items
+
+    def items
+      @items = @items || []
+      @items
+    end
+
+    def players
+      @players = @players || []
+      @players
+    end
+
+    def npcs
+      @npcs = @npcs || []
+      @npcs
+    end
 
     def enter player
+      player.room = self
       broadcast "#{player.name} entered the room"
-      self.players << player
+      players << player
+      player.save
       player.look
+    end
+
+    def add_npc npc
+      npc.room = self
+      npcs << npc
+    end
+
+    def remove_npc npc
+      npc.room = nil
+      npcs.delete(npc)
     end
 
     def characters
@@ -20,18 +44,19 @@ module ClasslessMud
     end
 
     def exit player
-      self.players.delete player
+      players.delete player
       broadcast "#{player.name} left the room"
+      save
     end
 
     def broadcast message
-      self.players.each do |occupant|
+      players.each do |occupant|
         occupant.puts message
       end
     end
 
     def broadcast_say from, message
-      self.players.each do |player|
+      players.each do |player|
         if player == from
           player.puts "You say '#{message}'"
         else

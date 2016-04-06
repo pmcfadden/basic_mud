@@ -10,7 +10,15 @@ module ClasslessMud
     end
 
     def die
-      self.save!
+      room.remove_npc self
+    end
+
+    def room
+      @room
+    end
+
+    def room= room
+      @room = room
     end
   end
 end

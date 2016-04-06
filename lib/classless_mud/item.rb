@@ -9,6 +9,8 @@ module ClasslessMud
     property :edible, Boolean, default: false
 
     has n, :effects
+    belongs_to :player, :required => false
+    belongs_to :npc, :required => false
 
     def edible?
       edible

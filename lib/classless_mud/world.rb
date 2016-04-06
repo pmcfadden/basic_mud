@@ -1,12 +1,15 @@
 module ClasslessMud
   class World
     def initialize rooms
-      @players = []
       @rooms = rooms
     end
 
     def add_player player
       @players << player
+    end
+
+    def find_room id
+      @rooms.detect {|room| room.id == id}
     end
 
     def starting_room

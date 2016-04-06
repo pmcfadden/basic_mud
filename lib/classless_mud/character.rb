@@ -73,5 +73,9 @@ module ClasslessMud
     def dead?
       health <= 0
     end
+
+    def room
+      @game.world.find_room(self.room_id)
+    end
   end
 end
