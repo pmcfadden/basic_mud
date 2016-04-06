@@ -21,7 +21,9 @@ module ClasslessMud
     end
 
     def remove_player player
-      player.room.exit player
+      if player.room
+        player.room.exit player
+      end
       @players.delete player
       broadcast "#{player.name} has left the game."
     end
