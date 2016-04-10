@@ -1,0 +1,16 @@
+[
+  {
+    "number": 1,
+    "description": "There's a set of glass double doors to the west and an intersection of hallways to the east.",
+    "exits": [
+      {"direction": "east", "room_number": "2"}
+    ]
+  },
+  {
+    "number": 2,
+    "description": "You are at an intersection of hallways.  Glass double doors lay to the north and south. An extension of the hallway lays to the west.",
+    "exits": [
+      {"direction": "west", "room_number": "1"}
+    ]
+  }
+]

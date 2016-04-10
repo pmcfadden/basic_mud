@@ -3,6 +3,8 @@ require 'data_mapper'
 require 'eventmachine'
 require 'active_support'
 require 'active_support/core_ext'
+require 'fileutils'
+require 'json'
 
 require_relative "classless_mud/version"
 require_relative "classless_mud/server"
@@ -68,12 +70,18 @@ module ClasslessMud
 
     chocolate.effects.save
     bad_chocolate.effects.save
-    room1 = Room.create description: "There's a set of glass double doors to the west and an intersection of hallways to the east."
-    room2 = Room.create description: "You are at an intersection of hallways.  Glass double doors lay to the north and south. An extension of the hallway lays to the west."
-    room1.save!
-    room2.save!
-    room1.exits.create! direction: 'east', target: room2
-    room2.exits.create! direction: 'west', target: room1
+    json_rooms = JSON.parse(File.read(File.join(self.conf_dir, 'rooms.json')))
+    json_rooms.each do |json_room|
+      Room.create(description: json_room['description'], number: json_room['number'])
+    end
+    json_rooms.each do |json_room|
+      next unless json_room['exits']
+
+      room = Room.first(number: json_room['number'])
+      json_room['exits'].each do |ex|
+        room.exits.create! direction: ex['direction'], target: Room.first(number: ex['room_number'])
+      end
+    end
   end
 
   def self.setup_rooms! rooms
@@ -97,5 +105,21 @@ module ClasslessMud
       puts "Starting server on port #{port}"
       ::ClasslessMud::Server.new(port, game).start
     }
+  end
+
+  def self.conf_dir
+    File.join(Dir.pwd, 'conf')
+  end
+
+  def self.generate_scaffold
+    FileUtils.mkdir_p(self.conf_dir)
+    if !File.exists?(File.join(Dir.pwd, 'conf', 'settings.yml'))
+      settings_template = File.join(File.dirname(File.expand_path(__FILE__)), 'classless_mud', 'templates', 'settings.yml.template')
+      FileUtils.cp(settings_template, File.join(self.conf_dir, 'settings.yml'))
+    end
+    if !File.exists?(File.join(Dir.pwd, 'conf', 'rooms.json'))
+      rooms_json = File.join(File.dirname(File.expand_path(__FILE__)), 'classless_mud', 'templates', 'rooms.json.template')
+      FileUtils.cp(rooms_json, File.join(self.conf_dir, 'rooms.json'))
+    end
   end
 end

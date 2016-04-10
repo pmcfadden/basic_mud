@@ -2,4 +2,16 @@
 lib_path = File.expand_path('../../lib', __FILE__)
 $:.unshift(lib_path)
 require 'classless_mud'
-ClasslessMud.start!
+
+command = ARGV[0]
+if command == 'scaffold'
+  ClasslessMud.generate_scaffold
+elsif command == 'init'
+  ClasslessMud.setup_db!
+  DataMapper.auto_upgrade!
+  ClasslessMud.setup_data!
+elsif command == 'start'
+  ClasslessMud.start!
+else
+  puts 'Valid commands: [scaffold, init, start]'
+end

@@ -1,6 +1,6 @@
 basic_mud
 =========
-=======
+
 # ClasslessMud
 
 TODO: Write a gem description
@@ -21,7 +21,18 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Generate example configuration settings with:
+
+    bundle exec classless_mud scaffold
+
+Import config and setup database:
+
+    bundle exec classless_mud init
+
+Start the server:
+
+    bundle exec classless_mud start
+
 
 ## Contributing
 
@@ -35,10 +46,11 @@ TODO: Write usage instructions here
 
 #### Server
 
-bundle
-rake db:setup
-./bin/classless_mud
+    bundle
+    ./bin/classless_mud scaffold
+    ./bin/classless_mud init
+    ./bin/classless_mud start
 
 #### Client
 
-telnet localhost 2000
+    telnet localhost 2000
