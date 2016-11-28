@@ -5,13 +5,9 @@ provider "aws" {
 }
 
 resource "aws_instance" "mud" {
-  ami           = "ami-116d857a"
+  ami           = "ami-eca289fb"
   instance_type = "t2.micro"
   subnet_id     = "subnet-3aaa4263"
   associate_public_ip_address = true
   key_name      = "sq2"
-
-  provisioner "local-exec" {
-    command = "apt-get update; apt-get install -y docker git; git clone https://github.com/pmcfadden/basic_mud.git; cd basic_mud/infra; docker-compose up -d"
-  }
 }
