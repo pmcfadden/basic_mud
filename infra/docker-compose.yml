@@ -1,0 +1,23 @@
+version: '2'
+
+services:
+  mud:
+    image: hammerdr/basic_mud
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgres://mud-robot@db:5432/mud
+      RACK_ENV: production
+    ports:
+      - '2000:2000'
+
+  db:
+    image: postgres
+    volumes:
+      - db-volume:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: mud-robot
+      POSTGRES_DB: mud
+
+volumes:
+  db-volume:
