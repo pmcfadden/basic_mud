@@ -17,10 +17,39 @@ module ClasslessMud
               room.save
               player.puts "Room description updated."
             }).start!
+          when 'exit'
+            from_room = player.room
+            direction, to_room_number, rest = message.split[2..-1]
+            if rest
+              exit_help(player, "Too many arguments (#{rest})")
+            elsif !to_room_number[/\d+/]
+              exit_help(player, "Room number (#{to_room_number}) not a number")
+            elsif !Exit::DIRECTIONS.include?(direction)
+              exit_help(player, "Invalid direction (#{direction})")
+            else
+              to_room = game.room_with_number(to_room_number.to_i)
+              from_room.exits.create!(
+                direction: direction,
+                target: to_room
+              )
+              to_room.exits.create!(
+                direction: Exit.opposite(direction),
+                target: from_room
+              )
+              player.puts "Exit created! (#{direction}: #{to_room_number})"
+            end
           else
             player.puts "Available subcommands:"
-            player.puts "    room"
+            player.puts "    room         Create a new room"
+            player.puts "    description  Edit current room description"
+            player.puts "    exit         Create an exit"
           end
+        end
+
+        def self.exit_help player, reason
+          player.puts "Help for creating exits (#{reason}):"
+          player.puts "    create exit <direction> <room #>"
+          player.puts "Directions: #{Exit::DIRECTIONS.join(' ')}"
         end
       end
     end

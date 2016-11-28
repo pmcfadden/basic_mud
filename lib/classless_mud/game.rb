@@ -25,6 +25,10 @@ module ClasslessMud
       @world.starting_room
     end
 
+    def room_with_number number
+      @world.find_room_by_number number
+    end
+
     def remove_player player
       if player.room
         player.room.exit player

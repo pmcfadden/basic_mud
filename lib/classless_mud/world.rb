@@ -12,6 +12,10 @@ module ClasslessMud
       @rooms.detect {|room| room.id == id}
     end
 
+    def find_room_by_number number
+      @rooms.detect { |room| room.number == number }
+    end
+
     def starting_room
       @rooms[0]
     end
