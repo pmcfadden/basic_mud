@@ -46,12 +46,11 @@ module ClasslessMud
 
       def self.map_and_description(description, map)
         map_text = map.print_map(1).split("\n")
-        longest_line = description.split("\n").map(&:size).max + 4
+        map_pad = " " * map_text.first.size
         padded_description = description.split("\n")
         padded_description += [""] * ([map_text.size - padded_description.size, 0].max)
         padded_description.each_with_index.map do |description_line, i|
-          spaces = " " * (longest_line - description_line.size)
-          "#{description_line}#{spaces}#{map_text[i]}"
+          "#{map_text[i] || map_pad}    #{description_line}"
         end.join("\n")
       end
     end
