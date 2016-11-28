@@ -22,9 +22,9 @@ module ClasslessMud
       @npcs
     end
 
-    def enter player
+    def enter player, message="#{player.name} entered the room."
       player.room = self
-      broadcast "#{player.name} entered the room"
+      broadcast message
       players << player
       player.save
       player.look

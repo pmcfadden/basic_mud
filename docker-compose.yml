@@ -1,0 +1,24 @@
+version: '2'
+
+services:
+  mud:
+    build: .
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgres://mud-robot@db:5432/mud
+    ports:
+      - '2000:2000'
+    volumes:
+      - .:/code
+
+  db:
+    image: postgres
+    volumes:
+      - db-volume:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: mud-robot
+      POSTGRES_DB: mud
+
+volumes:
+  db-volume:

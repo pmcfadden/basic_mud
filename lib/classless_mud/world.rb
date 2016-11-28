@@ -20,6 +20,14 @@ module ClasslessMud
       broadcast message
     end
 
+    def add_room room
+      @rooms << room
+    end
+
+    def max_room_number
+      @rooms.map(&:number).max
+    end
+
     def broadcast message
       @rooms.each do |room|
         room.handle_message message
