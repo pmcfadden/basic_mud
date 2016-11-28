@@ -9,14 +9,16 @@ module ClasslessMud
       'attack' => Fight
     }
 
-    def self.parse data
+    def self.parse data, player
       command = data.split[0]
       return ALIASES_TO_COMMANDS_MAP[command] if ALIASES_TO_COMMANDS_MAP.has_key?(command)
-      all_commands.detect(-> { BadCommand }) { |c| c.name.demodulize.to_s.downcase == command }
+      all_commands(player).detect(-> { BadCommand }) do |c|
+        c.name.demodulize.to_s.downcase == command
+      end
     end
 
-    def self.all_commands
-      regular_commands + admin_commands
+    def self.all_commands player
+      regular_commands + (player.admin? ? admin_commands : [])
     end
 
     def self.regular_commands

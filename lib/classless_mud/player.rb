@@ -3,7 +3,13 @@ module ClasslessMud
     include DataMapper::Resource
     include ClasslessMud::Character
 
+    ADMIN_LEVEL = 101
+
     property :password, DataMapper::Property::BCryptHash
+
+    def admin?
+      level >= ADMIN_LEVEL
+    end
 
     def client= client
       @client = client
@@ -36,7 +42,7 @@ module ClasslessMud
         if message.empty?
           # do nothing
         else
-          Commands.parse(message).perform @game, self, message
+          Commands.parse(message, self).perform @game, self, message
         end
       end
     end
