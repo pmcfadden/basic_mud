@@ -2,7 +2,7 @@ module ClasslessMud
   module Commands
     class Look
       def self.perform game, player, message
-        look_command, look_target = message.split " ", 2
+        _, look_target = message.split " ", 2
         if !look_target
           look_around player
         else
@@ -19,6 +19,10 @@ module ClasslessMud
           end.join(", ")
 
           player.puts "You also see: #{items}"
+        end
+
+        if player.room.exits.any?
+          player.puts "Exits: #{player.room.exits.map(&:direction).join(' ')}"
         end
 
         if player.room.characters.any?
