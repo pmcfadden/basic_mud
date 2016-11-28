@@ -15,7 +15,7 @@ module ClasslessMud
     end
 
     def on &callback
-      @client.on &callback
+      @client.on(&callback)
     end
 
     def puts message
@@ -27,8 +27,11 @@ module ClasslessMud
     end
 
     def handle_message message
-      if state == Character::FIGHT
+      case state
+      when Character::FIGHT
         FightCommands.parse(message).perform @game, self, current_fight, message
+      when Character::EDITOR
+        current_editor.handle(message)
       else
         if message.empty?
           # do nothing

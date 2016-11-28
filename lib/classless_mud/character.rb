@@ -6,6 +6,7 @@ module ClasslessMud
     include ClasslessMud::Colorizer
 
     FIGHT = 'fight'
+    EDITOR = 'editor'
     NORMAL = 'normal'
 
     included do
@@ -31,6 +32,10 @@ module ClasslessMud
 
     def current_fight
       @current_fight || Fight.new(self, EmptyCharacter.new)
+    end
+
+    def current_editor
+      @current_editor || Editor.new(self)
     end
 
     def max_health
@@ -68,6 +73,15 @@ module ClasslessMud
     def end_fight!
       self.state = NORMAL
       @current_fight = nil
+    end
+
+    def editor!(editor)
+      self.state = EDITOR
+      @current_editor = editor
+    end
+
+    def end_editor!
+      self.state = NORMAL
     end
 
     def dead?
