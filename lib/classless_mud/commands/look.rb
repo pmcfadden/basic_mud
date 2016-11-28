@@ -22,6 +22,10 @@ module ClasslessMud
           player.puts "You also see: #{items}"
         end
 
+        if player.admin?
+          player.puts "Room Number: #{player.room.number}, id: #{player.room.id}"
+        end
+
         if player.room.exits.any?
           player.puts "Exits: #{player.room.exits.map(&:direction).join(' ')}"
         end
