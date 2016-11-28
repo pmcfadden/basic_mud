@@ -28,15 +28,19 @@ module ClasslessMud
               exit_help(player, "Invalid direction (#{direction})")
             else
               to_room = game.room_with_number(to_room_number.to_i)
-              from_room.exits.create!(
-                direction: direction,
-                target: to_room
-              )
-              to_room.exits.create!(
-                direction: Exit.opposite(direction),
-                target: from_room
-              )
-              player.puts "Exit created! (#{direction}: #{to_room_number})"
+              if to_room.find_exit(Exit.opposite(direction)) || from_room.find_exit(direction)
+                exit_help(player, 'That exit already exists!')
+              else
+                from_room.exits.create!(
+                  direction: direction,
+                  target: to_room
+                )
+                to_room.exits.create!(
+                  direction: Exit.opposite(direction),
+                  target: from_room
+                )
+                player.puts "Exit created! (#{direction}: #{to_room_number})"
+              end
             end
           else
             player.puts "Available subcommands:"

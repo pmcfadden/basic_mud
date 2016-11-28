@@ -82,5 +82,9 @@ module ClasslessMud
         character.name.include? keyword
       end
     end
+
+    def find_exit direction
+      exits.first(direction: direction)
+    end
   end
 end
