@@ -1,6 +1,3 @@
-basic_mud
-=========
-
 # Basic Mud
 
 In theory, this is a general purpose mud engine. However, we are making it
