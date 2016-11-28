@@ -11,7 +11,8 @@ module ClasslessMud
       end
 
       def self.look_around player
-        player.puts player.room.description
+        map = ::ClasslessMud::Map.new(player.room)
+        player.puts map_and_description(player.room.description, map)
 
         if player.room.items.any?
           items = player.room.items.map do |item|
@@ -41,6 +42,17 @@ module ClasslessMud
         else
           player.puts "I don't see that anywhere"
         end
+      end
+
+      def self.map_and_description(description, map)
+        map_text = map.print_map(1).split("\n")
+        longest_line = description.split("\n").map(&:size).max + 4
+        padded_description = description.split("\n")
+        padded_description += [""] * ([map_text.size - padded_description.size, 0].max)
+        padded_description.each_with_index.map do |description_line, i|
+          spaces = " " * (longest_line - description_line.size)
+          "#{description_line}#{spaces}#{map_text[i]}"
+        end.join("\n")
       end
     end
   end
