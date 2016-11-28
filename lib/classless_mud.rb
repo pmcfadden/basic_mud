@@ -42,7 +42,7 @@ module ClasslessMud
   end
 
   def self.db_url
-    if ENV['RACK_ENV'] == 'production'
+    if ENV['DATABASE_URL']
       ENV['DATABASE_URL']
     else
       "sqlite3://#{Dir.pwd}/#{settings['db']['name']}"
