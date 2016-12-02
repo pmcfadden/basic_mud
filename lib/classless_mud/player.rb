@@ -73,5 +73,9 @@ module ClasslessMud
     def respawn_room
       @game.starting_room
     end
+
+    def player?
+      true
+    end
   end
 end

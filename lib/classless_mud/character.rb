@@ -91,5 +91,9 @@ module ClasslessMud
     def room
       @game.world.find_room(self.room_id)
     end
+
+    def player?
+      false
+    end
   end
 end

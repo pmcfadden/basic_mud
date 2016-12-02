@@ -27,4 +27,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency "activesupport"
   spec.add_dependency "eventmachine"
   spec.add_dependency "datamapper"
+  spec.add_dependency "rufus-lua"
 end

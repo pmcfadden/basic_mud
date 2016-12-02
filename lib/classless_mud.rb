@@ -7,6 +7,7 @@ require 'fileutils'
 require 'json'
 
 require_relative "classless_mud/version"
+require_relative "classless_mud/lua"
 require_relative "classless_mud/server"
 require_relative "classless_mud/client"
 require_relative "classless_mud/colorizer"
