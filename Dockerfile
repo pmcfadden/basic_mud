@@ -6,7 +6,7 @@ RUN mkdir $APP_HOME
 WORKDIR $APP_HOME
 
 # Headers needed
-RUN apt-get update && apt-get install -y libpq-dev postgresql-server-dev-9.4
+RUN apt-get update && apt-get install -y libpq-dev postgresql-server-dev-9.4 lua5.1
 
 COPY Gemfile* $APP_HOME/
 COPY *.gemspec $APP_HOME/
