@@ -7,6 +7,8 @@ module ClasslessMud
 
     property :password, DataMapper::Property::BCryptHash
 
+    has n, :campaigns, through: Resource
+
     def admin?
       level >= ADMIN_LEVEL
     end
