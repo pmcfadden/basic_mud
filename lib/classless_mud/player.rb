@@ -13,6 +13,10 @@ module ClasslessMud
       level >= ADMIN_LEVEL
     end
 
+    def quests
+      campaigns.map(&:quest)
+    end
+
     def client= client
       @client = client
     end
