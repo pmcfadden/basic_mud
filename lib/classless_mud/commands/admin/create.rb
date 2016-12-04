@@ -4,6 +4,14 @@ module ClasslessMud
       class Create
         def self.perform game, player, message
           case message.split[1]
+          when 'item'
+            item = Item.create(name: 'A hint of an item')
+            player.puts "Item ##{item.id} created!"
+            ::ClasslessMud::ItemEditor.new(player, item, lambda { |new_description|
+              player.items << item
+              player.items.save!
+              player.puts "#{item.name} added to your inventory."
+            }).start!
           when 'quest'
             quest = Quest.create(number: game.max_quest_number + 1)
             game.add_quest quest
