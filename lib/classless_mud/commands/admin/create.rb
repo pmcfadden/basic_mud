@@ -13,7 +13,8 @@ module ClasslessMud
               player.puts "#{item.name} added to your inventory."
             }).start!
           when 'quest'
-            quest = Quest.create(number: game.max_quest_number + 1)
+            _, _, name = message.split ' ', 3
+            quest = Quest.create(name: name, number: game.max_quest_number + 1)
             game.add_quest quest
             player.puts "Quest ##{quest.number} created! Describe this new quest:"
             ::ClasslessMud::Editor.new(player, '', lambda { |new_description|
@@ -61,7 +62,7 @@ module ClasslessMud
             player.puts "Available subcommands:"
             player.puts "    description  Edit current room description"
             player.puts "    exit         Create an exit"
-            player.puts "    quest        Create a new quest"
+            player.puts "    quest <name> Create a new quest"
             player.puts "    room         Create a new room"
           end
         end

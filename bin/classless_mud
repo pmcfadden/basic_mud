@@ -12,6 +12,9 @@ elsif command == 'init'
   ClasslessMud.setup_data!
 elsif command == 'start'
   ClasslessMud.start!
+elsif command == 'migrate'
+  ClasslessMud.setup_db!
+  DataMapper.auto_upgrade!
 else
-  puts 'Valid commands: [scaffold, init, start]'
+  puts 'Valid commands: [scaffold, init, start, migrate]'
 end
