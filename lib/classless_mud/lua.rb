@@ -24,6 +24,28 @@ module ClasslessMud
     end
 
     def register_functions(container)
+      container.function 'quest_start' do |quest_id|
+        quest = @game.find_quest(quest_id)
+        if quest
+          quest.start!(player)
+        else
+          @game.admin_log("Quest ##{quest_id} could not be found in lua game script.
+
+                          #{caller.join("\n")}")
+        end
+      end
+
+      container.function 'quest_complete' do |quest_id|
+        quest = @game.find_quest(quest_id)
+        if quest
+          quest.complete!(player)
+        else
+          @game.admin_log("Quest ##{quest_id} could not be found in lua game script.
+
+                          #{caller.join("\n")}")
+        end
+      end
+
       container.function 'ispc' do
         @player.player?
       end

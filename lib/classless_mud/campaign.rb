@@ -7,5 +7,9 @@ module ClasslessMud
 
     belongs_to :quest
     has n, :players, through: Resource
+
+    def complete?
+      completed
+    end
   end
 end
