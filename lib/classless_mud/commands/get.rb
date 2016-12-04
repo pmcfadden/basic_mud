@@ -10,7 +10,7 @@ module ClasslessMud
           player.items.save!
           player.room.broadcast "#{player.name} picks up #{found.name}"
           player.puts "You pick up #{found.name}"
-          found.triggers_for([:get, :interaction]).each do |trigger|
+          found.triggers_for(['get', 'interaction']).each do |trigger|
             ::ClasslessMud::Lua.new(
               trigger.code,
               player,

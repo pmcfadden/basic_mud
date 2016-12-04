@@ -27,23 +27,27 @@ module ClasslessMud
       container.function 'quest_start' do |quest_id|
         quest = @game.find_quest(quest_id)
         if quest
-          quest.start!(player)
+          quest.start!(@player)
         else
           @game.admin_log("Quest ##{quest_id} could not be found in lua game script.
 
                           #{caller.join("\n")}")
         end
+        # This is to return a value that lua can serialize
+        'quest_start'
       end
 
       container.function 'quest_complete' do |quest_id|
         quest = @game.find_quest(quest_id)
         if quest
-          quest.complete!(player)
+          quest.complete!(@player)
         else
           @game.admin_log("Quest ##{quest_id} could not be found in lua game script.
 
                           #{caller.join("\n")}")
         end
+        # This is to return a value that lua can serialize
+        'quest_complete'
       end
 
       container.function 'ispc' do
