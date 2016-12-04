@@ -5,6 +5,7 @@ module ClasslessMud
     property :id, Serial
     property :number, Integer, :unique => true
     property :description, Text
+    property :name, String
 
     has n, :campaigns
 
