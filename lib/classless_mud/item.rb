@@ -21,5 +21,9 @@ module ClasslessMud
     def affect player
       effects.each { |effect| effect.affect(player) }
     end
+
+    def triggers_for(types)
+      triggers.select { |trigger| types.include?(trigger.type) }
+    end
   end
 end
