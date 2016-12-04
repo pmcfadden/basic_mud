@@ -22,6 +22,11 @@ module ClasslessMud
       belongs_to :room
     end
 
+    def reset!
+      self.state = NORMAL
+      save
+    end
+
     def game= game
       @game = game
     end
