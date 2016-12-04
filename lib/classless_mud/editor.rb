@@ -15,8 +15,8 @@ module ClasslessMud
 
     def complete!
       @player.puts 'Finished!'
-      @editor_callback.call(@message)
       @player.end_editor!
+      @editor_callback.call(@message)
     end
 
     def handle(message)

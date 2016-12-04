@@ -27,8 +27,8 @@ module ClasslessMud
       elsif message.split(' ').size < 2
         help_text
       else
-        number, *value = message.split(' ')
-        value = value.join(' ')
+        number, *split_value = message.split(' ')
+        value = split_value.join(' ')
         case number
         when '1'
           @item.update(name: value)
@@ -42,6 +42,18 @@ module ClasslessMud
         when '4'
           @item.update(edible: value)
           puts_values
+        when '5'
+          type, *trigger_name_split = split_value
+          if trigger_name_split.empty?
+            help_text
+          else
+            @player.puts 'Code for trigger...'
+            ::ClasslessMud::Editor.new(@player, '', lambda { |code|
+              @item.triggers.create(type: type, name: trigger_name_split.join(' '), code: code)
+              @player.editor!(self)
+              puts_values
+            }).start!
+          end
         else
           help_text
         end
@@ -56,17 +68,39 @@ module ClasslessMud
       [2] Short Description : #{@item.short_description}
       [3] Keywords          : #{@item.keywords}
       [4] Edible            : #{@item.edible}
+      [5] Add trigger: 5 <type> <name>
+
+      Triggers:
+      #{trigger_values}
       EOS
       @player.puts message
     end
 
+    def trigger_values(initial_index = 6)
+      edits = @item.triggers.each_with_index.map do |trigger, i|
+        "[#{initial_index + i}] Edit trigger #{trigger.id} (#{trigger.name})"
+      end.join("\n")
+
+      deletes = @item.triggers.each_with_index.map do |trigger, i|
+        "[#{initial_index + @item.triggers.size + i}] Delete trigger #{trigger.id} (#{trigger.name})"
+      end.join("\n")
+
+      [edits, deletes].join("\n")
+    end
+
     def help_text
       message = <<-EOS
-      You are editing item #{item.id}.
+      You are editing item #{@item.id}.
       To update a value type "<number> <value>". For example, to
       update the item name:
 
         1 New Name
+
+      For adding triggers:
+
+        5 <type> <name>
+
+        Types: get interaction
 
       Other commands:
 
