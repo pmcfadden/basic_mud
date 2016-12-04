@@ -100,5 +100,12 @@ module ClasslessMud
     def player?
       false
     end
+
+    def find_in_inventory(keywords)
+      keywords_array = keywords.split
+      items.detect do |item|
+        (item.keywords.split & keywords_array).any?
+      end
+    end
   end
 end
