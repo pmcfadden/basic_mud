@@ -63,7 +63,7 @@ module ClasslessMud
     private
 
     def puts_values
-      message = <<-EOS
+      message = <<~EOS
       [1] Name              : #{@item.name}
       [2] Short Description : #{@item.short_description}
       [3] Keywords          : #{@item.keywords}
@@ -89,7 +89,7 @@ module ClasslessMud
     end
 
     def help_text
-      message = <<-EOS
+      message = <<~EOS
       You are editing item #{@item.id}.
       To update a value type "<number> <value>". For example, to
       update the item name:
