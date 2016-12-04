@@ -15,6 +15,14 @@ module ClasslessMud
       @quests.detect { |q| q.id == quest_id }
     end
 
+    def add_quest(quest)
+      @quests << quest
+    end
+
+    def max_quest_number
+      @quests.map(&:number).max || 0
+    end
+
     def admin_log(message)
       @players.select(&:admin?).each do |admin|
         admin.puts message

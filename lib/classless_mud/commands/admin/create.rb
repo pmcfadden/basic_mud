@@ -4,6 +4,14 @@ module ClasslessMud
       class Create
         def self.perform game, player, message
           case message.split[1]
+          when 'quest'
+            quest = Quest.create(number: game.max_quest_number + 1)
+            game.add_quest quest
+            player.puts "Quest ##{quest.number} created! Describe this new quest:"
+            ::ClasslessMud::Editor.new(player, '', lambda { |new_description|
+              quest.update(description: new_description)
+              player.puts "Quest ##{quest.number} updated!"
+            }).start!
           when 'room'
             room = ::ClasslessMud::Room.create(description: 'A new room made from the mists.', number: game.world.max_room_number + 1)
             game.world.add_room room
@@ -13,8 +21,7 @@ module ClasslessMud
           when 'description'
             room = player.room
             ::ClasslessMud::Editor.new(player, room.description, lambda { |new_description|
-              room.description = new_description
-              room.save
+              room.update(description: new_description)
               player.puts "Room description updated."
             }).start!
           when 'exit'
@@ -44,9 +51,10 @@ module ClasslessMud
             end
           else
             player.puts "Available subcommands:"
-            player.puts "    room         Create a new room"
             player.puts "    description  Edit current room description"
             player.puts "    exit         Create an exit"
+            player.puts "    quest        Create a new quest"
+            player.puts "    room         Create a new room"
           end
         end
 
