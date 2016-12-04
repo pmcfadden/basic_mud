@@ -104,7 +104,8 @@ module ClasslessMud
     rooms = Room.all
     setup_rooms!(rooms)
     world = World.new rooms
-    game = Game.new world, settings
+    quests = Quest.all
+    game = Game.new world, quests, settings
 
     EventMachine::run {
       puts "Starting server on port #{port}"

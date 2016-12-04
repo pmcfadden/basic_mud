@@ -4,10 +4,21 @@ module ClasslessMud
     attr_reader :settings
     attr_reader :world
 
-    def initialize world, settings
+    def initialize world, quests, settings
       @players = []
       @world = world
       @settings = settings
+      @quests = quests
+    end
+
+    def find_quest(quest_id)
+      @quests.detect { |q| q.id == quest_id }
+    end
+
+    def admin_log(message)
+      @players.select(&:admin?).each do |admin|
+        admin.puts message
+      end
     end
 
     def add_player player
