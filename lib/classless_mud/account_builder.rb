@@ -28,6 +28,7 @@ module ClasslessMud
       client.on do |account_name|
         player = Player.first(name: account_name)
         if player
+          player.reset!
           login player
         else
           create account_name
