@@ -33,6 +33,12 @@ module ClasslessMud
             else
               edit_help player
             end
+          when 'room'
+            _, _, _, _, type, name = message.split
+            ::ClasslessMud::Editor.new(player, '', lambda { |code|
+              trigger = player.room.triggers.create(type: type, name: name, code: code)
+              player.puts "Trigger ##{trigger.id} created."
+            }).start!
           else
             edit_help(player)
           end
@@ -40,9 +46,10 @@ module ClasslessMud
 
         def self.edit_help(player)
           player.puts "Available subcommands:"
-          player.puts "    quest name <id> <name>   Edit quest name"
-          player.puts "    quest description <id>   Edit quest description"
-          player.puts "    item <keyword>           Edit item"
+          player.puts "    quest name <id> <name>          Edit quest name"
+          player.puts "    quest description <id>          Edit quest description"
+          player.puts "    item <keyword>                  Edit item"
+          player.puts "    room add trigger <type> <name>  Add a room trigger"
         end
       end
     end
