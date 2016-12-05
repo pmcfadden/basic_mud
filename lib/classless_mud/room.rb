@@ -8,6 +8,7 @@ module ClasslessMud
     has n, :exits, :child_key => [ :source_id ]
     has n, :connected_rooms, self, :through => :exits, :via => :target
     has n, :triggers, 'RoomTrigger', child_key: 'room_id'
+    has n, :spawnpoints
 
     def items
       @items = @items || []
