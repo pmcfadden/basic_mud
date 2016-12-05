@@ -19,7 +19,7 @@ module ClasslessMud
       has n, :items
       has 1, :character_sheet, default: CharacterSheet.new, child_key: :player_id
 
-      belongs_to :room
+      belongs_to :room, required: false
     end
 
     def reset!

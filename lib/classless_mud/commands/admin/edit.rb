@@ -34,11 +34,30 @@ module ClasslessMud
               edit_help player
             end
           when 'room'
-            _, _, _, _, type, name = message.split
-            ::ClasslessMud::Editor.new(player, '', lambda { |code|
-              trigger = player.room.triggers.create(type: type, name: name, code: code)
-              player.puts "Trigger ##{trigger.id} created."
-            }).start!
+            _, _, _, add_type, type, name = message.split
+            if add_type == 'trigger'
+              ::ClasslessMud::Editor.new(player, '', lambda { |code|
+                trigger = player.room.triggers.create(type: type, name: name, code: code)
+                player.puts "Trigger ##{trigger.id} created."
+              }).start!
+            else
+              npc = ::ClasslessMud::Npc.create(
+                name: 'cityguard',
+                health: 10,
+                level: 1,
+                room: player.room
+              )
+              puts npc.errors.full_messages
+              spawnpoint = Spawnpoint.create(
+                npc_template: npc,
+                max_alive: 1,
+                room: player.room,
+                time_interval: 5.minutes.to_i,
+                last_spawn: Time.now
+              )
+              player.room.spawnpoints << spawnpoint
+              player.room.save
+            end
           else
             edit_help(player)
           end
@@ -50,6 +69,7 @@ module ClasslessMud
           player.puts "    quest description <id>          Edit quest description"
           player.puts "    item <keyword>                  Edit item"
           player.puts "    room add trigger <type> <name>  Add a room trigger"
+          player.puts "    room add spawn"
         end
       end
     end
