@@ -23,6 +23,16 @@ module ClasslessMud
             else
               edit_help(player)
             end
+          when 'item'
+            _, _, keyword = message.split ' '
+            item = player.find_in_inventory keyword
+            if item
+              ::ClasslessMud::ItemEditor.new(player, item.reload, lambda { |new_description|
+                player.puts "Item #{item.id} updated!"
+              }).start!
+            else
+              edit_help player
+            end
           else
             edit_help(player)
           end
@@ -32,6 +42,7 @@ module ClasslessMud
           player.puts "Available subcommands:"
           player.puts "    quest name <id> <name>   Edit quest name"
           player.puts "    quest description <id>   Edit quest description"
+          player.puts "    item <keyword>           Edit item"
         end
       end
     end
