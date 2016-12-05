@@ -4,6 +4,12 @@ module ClasslessMud
       @rooms = rooms
     end
 
+    def tick
+      @rooms.each do |room|
+        room.tick
+      end
+    end
+
     def add_player player
       @players << player
     end

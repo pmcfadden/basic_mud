@@ -93,5 +93,12 @@ module ClasslessMud
     def find_exit direction
       exits.first(direction: direction)
     end
+
+    def tick
+      spawnpoints.each do |spawnpoint|
+        spawnpoint.try_spawn!
+      end
+      @npcs = ::ClasslessMud::Npc.all(room_id: id)
+    end
   end
 end

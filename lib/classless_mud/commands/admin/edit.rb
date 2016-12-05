@@ -47,7 +47,6 @@ module ClasslessMud
                 level: 1,
                 room: player.room
               )
-              puts npc.errors.full_messages
               spawnpoint = Spawnpoint.create(
                 npc_template: npc,
                 max_alive: 1,

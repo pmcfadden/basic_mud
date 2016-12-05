@@ -13,7 +13,7 @@ module ClasslessMud
 
     def try_spawn!
       if should_spawn?
-        new_npc = npc_template.clone!
+        new_npc = npc_template.clone
         new_npc.room = room
         room.characters << new_npc
         new_npc.save
@@ -27,7 +27,7 @@ module ClasslessMud
     end
 
     def should_spawn?
-      last_spawn > Time.now - time_interval.seconds && alive_npcs.size < max_alive
+      last_spawn < Time.now - time_interval.seconds && alive_npcs.size < max_alive
     end
   end
 end
