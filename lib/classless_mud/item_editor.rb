@@ -54,6 +54,23 @@ module ClasslessMud
               puts_values
             }).start!
           end
+        when /^\d+$/
+          max_valid_value = 5 + (@item.triggers.size * 2)
+          if number.to_i <= max_valid_value
+            if number.to_i < (5 + @item.triggers.size)
+              index = number.to_i - 5
+              ::ClasslessMud::Editor.new(@player, @item.triggers[index].code, lambda { |code|
+                @item.triggers[index].update(code: code)
+                @player.editor!(self)
+                puts_values
+              }).start!
+            else
+              index = number.to_i - 5 - @item.triggers.size
+              @item.triggers[index].delete
+            end
+          else
+            help_text
+          end
         else
           help_text
         end
