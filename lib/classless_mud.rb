@@ -106,7 +106,7 @@ module ClasslessMud
     setup_db!
 
     rooms = Room.all
-    setup_rooms!(rooms)
+    # setup_rooms!(rooms)
     world = World.new rooms
     quests = Quest.all
     game = Game.new world, quests, settings

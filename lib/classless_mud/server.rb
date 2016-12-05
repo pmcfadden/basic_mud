@@ -9,6 +9,12 @@ module ClasslessMud
       @signature = EventMachine.start_server('0.0.0.0', @port, ::ClasslessMud::Client) do |client|
         client.start @game
       end
+      Thread.new {
+        loop do
+          @game.tick
+          sleep 20
+        end
+      }
     end
 
     def stop

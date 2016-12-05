@@ -3,6 +3,8 @@ module ClasslessMud
     include DataMapper::Resource
     include ClasslessMud::Character
 
+    has n, :spawnpoints, child_key: [:npc_template_id]
+
     def puts message
     end
 
@@ -10,7 +12,7 @@ module ClasslessMud
     end
 
     def die
-      room.remove_npc self
+      @room.remove_npc self
     end
 
     def room
@@ -19,6 +21,14 @@ module ClasslessMud
 
     def room= room
       @room = room
+    end
+
+    def clone
+      self.class.new(
+        name: name,
+        health: health,
+        level: level
+      )
     end
   end
 end

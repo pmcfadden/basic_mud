@@ -11,6 +11,10 @@ module ClasslessMud
       @quests = quests
     end
 
+    def tick
+      @world.tick
+    end
+
     def find_quest(quest_id)
       @quests.detect { |q| q.id == quest_id }
     end
