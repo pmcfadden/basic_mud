@@ -4,12 +4,18 @@ module ClasslessMud
     property :id, Serial
     property :number, Integer, :unique => true
     property :description, Text
+
     has n, :exits, :child_key => [ :source_id ]
     has n, :connected_rooms, self, :through => :exits, :via => :target
+    has n, :triggers, 'RoomTrigger', child_key: 'room_id'
 
     def items
       @items = @items || []
       @items
+    end
+
+    def triggers_for(types)
+      triggers.select { |trigger| types.include?(trigger.type) }
     end
 
     def players
