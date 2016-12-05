@@ -24,8 +24,8 @@ module ClasslessMud
         complete!
       elsif message == 'help'
         help_text
-      elsif message.split(' ').size < 2
-        help_text
+      elsif message == 'show'
+        puts_values
       else
         number, *split_value = message.split(' ')
         value = split_value.join(' ')
@@ -57,16 +57,16 @@ module ClasslessMud
         when /^\d+$/
           max_valid_value = 5 + (@item.triggers.size * 2)
           if number.to_i <= max_valid_value
-            if number.to_i < (5 + @item.triggers.size)
-              index = number.to_i - 5
+            if number.to_i <= (5 + @item.triggers.size)
+              index = number.to_i - 5 - 1
               ::ClasslessMud::Editor.new(@player, @item.triggers[index].code, lambda { |code|
                 @item.triggers[index].update(code: code)
                 @player.editor!(self)
                 puts_values
               }).start!
             else
-              index = number.to_i - 5 - @item.triggers.size
-              @item.triggers[index].delete
+              index = number.to_i - 5 - @item.triggers.size - 1
+              @item.triggers.delete(@item.triggers[index])
             end
           else
             help_text
@@ -121,6 +121,7 @@ module ClasslessMud
 
       Other commands:
 
+        show
         help
         done
       EOS
