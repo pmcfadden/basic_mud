@@ -39,6 +39,10 @@ more.
 
 # Admin setup (production)
 
+There is a default user: Admin with the default password 'password'.
+You'll need to reset the password or delete the account if that's not
+the admin char you would like to use.
+
 You'll need to find a way to psql into the postgres server. We run postgres
 as a tied-off network in production (you can see that in the infra/ folder).
 So, we actually need to run a container with access to it in order to give
