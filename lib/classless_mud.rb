@@ -89,6 +89,7 @@ module ClasslessMud
         room.exits.create! direction: ex['direction'], target: Room.first(number: ex['room_number'])
       end
     end
+    Player.create(name: 'Admin', health: 110, level: 101, password: '$2a$10$wnIlkO2HwLX015kFppPpSeh/LM0ilttfXoyipkQwcy3yOTBgtJyhq') unless Player.first(name: 'Admin').nil?
   end
 
   def self.setup_rooms! rooms
