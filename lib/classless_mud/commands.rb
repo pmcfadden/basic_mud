@@ -1,10 +1,14 @@
 module ClasslessMud
   module Commands
     ALIASES_TO_COMMANDS_MAP = {
-      'north' => Move,
-      'west' => Move,
-      'south' => Move,
-      'east' => Move,
+      'north' => North,
+      'n' => North,
+      'west' => West,
+      'w' => West,
+      'south' => South,
+      's' => South,
+      'east' => East,
+      'e' => East,
       'kill' => Fight,
       'attack' => Fight
     }
