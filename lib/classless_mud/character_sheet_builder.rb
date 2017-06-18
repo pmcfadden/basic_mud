@@ -1,5 +1,5 @@
 module ClasslessMud
-  RACES = ['human', 'elven']
+  RACES = ['human', 'elven', 'halfling', 'giant']
   class CharacterSheetBuilder
     attr_reader :player, :character_sheet, :on_complete
 
