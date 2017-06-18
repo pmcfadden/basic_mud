@@ -7,7 +7,8 @@ module ClasslessMud
     def self.create player, &on_complete
       builder = self.new player, on_complete
       builder.build
-      player.character_sheet end
+      player.character_sheet
+    end
 
     def initialize player, on_complete
       @player = player
