@@ -8,6 +8,7 @@ module ClasslessMud
     property :agility, Integer, default: 10
     property :intelligence, Integer, default: 10
     property :race, String, default: 'human'
+    property :profession, String, default: 'fighter'
 
     belongs_to :player
 

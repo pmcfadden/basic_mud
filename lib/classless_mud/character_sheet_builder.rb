@@ -1,5 +1,6 @@
 module ClasslessMud
   RACES = ['human', 'elven', 'halfling', 'giant']
+  PROFESSIONS = ['bard', 'cleric', 'fighter', 'paladin', 'ranger', 'thief', 'wizard']
   class CharacterSheetBuilder
     attr_reader :player, :character_sheet, :on_complete
 
@@ -21,7 +22,27 @@ We are going to roll your character. This means that your character
 will be going through a process to determine its stats. Blah blah blah
 instructions instructions.
 
-First, you will need to select a race. The races available are:
+First, you will need to select a profession. The professions available are:
+  #{PROFESSIONS.join(' ')}
+
+Which class are you?
+EOS
+      player.on do |profession|
+        if PROFESSIONS.include? profession
+          player.puts "Your character is now a #{profession}."
+          character_sheet.profession = profession
+          choose_race
+          # roll_stats
+        else
+          player.puts 'Invalid profession.'
+          build
+        end
+      end
+    end
+
+    def choose_race
+      player.puts <<EOS
+Now you need to select your race. The races available are:
   #{RACES.join(' ')}
 
 Which race are you?
@@ -33,7 +54,7 @@ EOS
           roll_stats
         else
           player.puts 'Invalid race.'
-          build
+          choose_race
         end
       end
     end
