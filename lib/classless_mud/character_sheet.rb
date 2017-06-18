@@ -3,10 +3,22 @@ module ClasslessMud
     include ClasslessMud::Colorizer
     include DataMapper::Resource
 
+    SHORT_FORM = {
+      STR: :strength,
+      AGI: :agility,
+      INT: :intelligence,
+      CON: :constitution,
+      WIS: :wisdom,
+      CHA: :charisma
+    }
+
     property :id, Serial
     property :strength, Integer, default: 10
     property :agility, Integer, default: 10
     property :intelligence, Integer, default: 10
+    property :constitution, Integer, default: 10
+    property :wisdom, Integer, default: 10
+    property :charisma, Integer, default: 10
     property :race, String, default: 'human'
     property :profession, String, default: 'fighter'
 
