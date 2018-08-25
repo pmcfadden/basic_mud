@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ClasslessMud
   module Colorizer
     # To add more, look at this

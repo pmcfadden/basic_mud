@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ClasslessMud
   class World
     def initialize(rooms)

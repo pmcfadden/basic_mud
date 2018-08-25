@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 module ClasslessMud
   module Commands
     module Admin
       class Goto
         def self.perform(_game, player, message)
           room_number = message.split[1]
-          if room_number =~ /^\d+$/
+          if room_number.match?(/^\d+$/)
             room = Room.first(number: room_number)
             if room
               player.puts "Transporting you to room ##{room.number}."

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ClasslessMud
   class FightFactory
     def self.begin_fight(character_one, character_two)

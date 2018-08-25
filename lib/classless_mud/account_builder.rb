@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ClasslessMud
   class AccountBuilder
     attr_reader :client, :game, :player

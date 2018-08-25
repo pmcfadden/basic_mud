@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ClasslessMud
   class ItemEditor
     def initialize(player, item, editor_callback)
@@ -81,14 +83,13 @@ module ClasslessMud
 
     def puts_values
       message = <<~EOS
-      [1] Name              : #{@item.name}
-      [2] Short Description : #{@item.short_description}
-      [3] Keywords          : #{@item.keywords}
-      [4] Edible            : #{@item.edible}
-      [5] Add trigger: 5 <type> <name>
-
-      Triggers:
-      #{trigger_values}
+        [1] Name              : #{@item.name}
+        [2] Short Description : #{@item.short_description}
+        [3] Keywords          : #{@item.keywords}
+        [4] Edible            : #{@item.edible}
+        [5] Add trigger: 5 <type> <name>
+         Triggers:
+        #{trigger_values}
       EOS
       @player.puts message
     end
@@ -107,23 +108,17 @@ module ClasslessMud
 
     def help_text
       message = <<~EOS
-      You are editing item #{@item.id}.
-      To update a value type "<number> <value>". For example, to
-      update the item name:
-
-        1 New Name
-
-      For adding triggers:
-
-        5 <type> <name>
-
-        Types: get interaction
-
-      Other commands:
-
-        show
-        help
-        done
+        You are editing item #{@item.id}.
+        To update a value type "<number> <value>". For example, to
+        update the item name:
+           1 New Name
+         For adding triggers:
+           5 <type> <name>
+           Types: get interaction
+         Other commands:
+           show
+          help
+          done
       EOS
       @player.puts message
     end

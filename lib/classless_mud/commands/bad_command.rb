@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 module ClasslessMud
   module Commands
     class BadCommand
       def self.perform(_game, player, message)
         if matches(message).any?
-          player.puts <<EOS
-Did you mean:
-  #{matches(message).join(' ')}
+          player.puts <<~EOS
+            Did you mean:
+              #{matches(message).join(' ')}
 EOS
         else
           player.puts 'You typed that wrong. Try again.'

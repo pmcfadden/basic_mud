@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ClasslessMud
   class GameMaster
     def self.setup_player(player)

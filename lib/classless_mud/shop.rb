@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ClasslessMud
   # Representation of a shop in the world
   class Shop

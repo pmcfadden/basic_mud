@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ClasslessMud::Commands::Admin
   class Kick
     def self.perform(game, player, message)

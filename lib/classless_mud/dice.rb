@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ClasslessMud
   class Dice
     def self.create(dice_type)

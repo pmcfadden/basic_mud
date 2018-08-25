@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ClasslessMud
   # This module is included in both player
   # and NPC
@@ -5,9 +7,9 @@ module ClasslessMud
     extend ActiveSupport::Concern
     include ClasslessMud::Colorizer
 
-    FIGHT = 'fight'.freeze
-    EDITOR = 'editor'.freeze
-    NORMAL = 'normal'.freeze
+    FIGHT = 'fight'
+    EDITOR = 'editor'
+    NORMAL = 'normal'
 
     included do
       property :id, DataMapper::Property::Serial

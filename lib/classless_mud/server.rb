@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ClasslessMud
   class Server
     def initialize(port, game)

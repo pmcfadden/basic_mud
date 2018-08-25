@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'dm-migrations'
 require_relative '../lib/classless_mud'
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ClasslessMud
   class Editor
     def initialize(player, initial_value, editor_callback)

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ClasslessMud
   class Item
     include DataMapper::Resource

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ClasslessMud
   # Representation of something sold at a shop
   class Product

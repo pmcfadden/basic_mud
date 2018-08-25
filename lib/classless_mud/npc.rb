@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ClasslessMud
   # A "Non Player Character". This is an entity
   # in the game controlled by the game itself and

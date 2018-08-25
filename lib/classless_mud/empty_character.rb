@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ClasslessMud
   class EmptyCharacter
     attr_reader :name

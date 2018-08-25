@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 module ClasslessMud
-  MOTD = <<EOS.freeze
+  MOTD = <<EOS
                   .-~~~~~~~~~-._       _.-~~~~~~~~~-.
               __.'              ~.   .~              `.__
             .'//  We    are       \./    awesome.      \\`.
@@ -33,7 +35,7 @@ EOS
       else
         player.handle_message(data)
       end
-      player.display_prompt if player
+      player&.display_prompt
     end
 
     def on(&callback)

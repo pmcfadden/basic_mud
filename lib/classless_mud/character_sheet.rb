@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ClasslessMud
   class CharacterSheet
     include ClasslessMud::Colorizer
@@ -25,14 +27,14 @@ module ClasslessMud
     belongs_to :player
 
     def display
-      player.puts <<EOS
-#{green(player.name)} - #{red(race)}
+      player.puts <<~EOS
+        #{green(player.name)} - #{red(race)}
 
-#{green('Strength')}:     #{red(strength)}
-#{green('Agility')}:      #{red(agility)}
-#{green('Intelligence')}: #{red(intelligence)}
+        #{green('Strength')}:     #{red(strength)}
+        #{green('Agility')}:      #{red(agility)}
+        #{green('Intelligence')}: #{red(intelligence)}
 
-#{green('Superpowers')}: #{red('none')}
+        #{green('Superpowers')}: #{red('none')}
 EOS
     end
   end

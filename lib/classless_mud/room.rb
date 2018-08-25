@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ClasslessMud
   # Representation of a space that characters
   # can occupy in the game

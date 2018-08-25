@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 module ClasslessMud
   class FightCommands
     def self.parse(message)
-      if message =~ /flee/
+      if message.match?(/flee/)
         Flee.new
-      elsif message =~ /attack/
+      elsif message.match?(/attack/)
         Attack.new
       else
         NoAction.new
@@ -13,11 +15,11 @@ module ClasslessMud
 
   class NoAction
     def perform(_game, player, fight, _message)
-      player.puts <<-EOS
-#{fight.title}
-You can
- * flee   :: Run away from the fight
- * attack :: Roll a #{player.damage_die} for damage
+      player.puts <<~EOS
+        #{fight.title}
+        You can
+         * flee   :: Run away from the fight
+         * attack :: Roll a #{player.damage_die} for damage
       EOS
     end
   end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ClasslessMud
   RACES = %w[human elven halfling giant].freeze
   PROFESSIONS = %w[bard cleric fighter paladin ranger thief wizard].freeze
@@ -17,15 +19,15 @@ module ClasslessMud
     end
 
     def build
-      player.puts <<EOS
-We are going to roll your character. This means that your character
-will be going through a process to determine its stats. Blah blah blah
-instructions instructions.
+      player.puts <<~EOS
+        We are going to roll your character. This means that your character
+        will be going through a process to determine its stats. Blah blah blah
+        instructions instructions.
 
-First, you will need to select a profession. The professions available are:
-  #{PROFESSIONS.join(' ')}
+        First, you will need to select a profession. The professions available are:
+          #{PROFESSIONS.join(' ')}
 
-Which class are you?
+        Which class are you?
 EOS
       player.on do |profession|
         if PROFESSIONS.include? profession
@@ -40,11 +42,11 @@ EOS
     end
 
     def choose_race
-      player.puts <<EOS
-Now you need to select your race. The races available are:
-  #{RACES.join(' ')}
+      player.puts <<~EOS
+        Now you need to select your race. The races available are:
+          #{RACES.join(' ')}
 
-Which race are you?
+        Which race are you?
 EOS
       player.on do |race|
         if RACES.include? race
@@ -61,16 +63,16 @@ EOS
     def roll_stats
       strength_roll, agility_roll, intelligence_roll,
         constitution_roll, wisdom_roll, charisma_roll = (1..6).map { Dice.create('2d6+0').roll }
-      player.puts <<EOS
-You rolled
-  Strength    : #{strength_roll}
-  Agility     : #{agility_roll}
-  Intelligence: #{intelligence_roll}
-  Constitution: #{constitution_roll}
-  Wisdom      : #{wisdom_roll}
-  Charisma    : #{charisma_roll}
+      player.puts <<~EOS
+        You rolled
+          Strength    : #{strength_roll}
+          Agility     : #{agility_roll}
+          Intelligence: #{intelligence_roll}
+          Constitution: #{constitution_roll}
+          Wisdom      : #{wisdom_roll}
+          Charisma    : #{charisma_roll}
 
-Keep these? [y/N]
+        Keep these? [y/N]
 EOS
 
       player.on do |confirm_roll|

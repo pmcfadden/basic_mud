@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ClasslessMud
   class Game
     attr_reader :players
@@ -53,7 +55,7 @@ module ClasslessMud
     end
 
     def remove_player(player)
-      player.room.exit player if player.room
+      player.room&.exit player
       @players.delete player
       broadcast "#{player.name} has left the game."
     end
@@ -63,10 +65,10 @@ module ClasslessMud
     end
 
     def display_players(player)
-      player.puts <<EOS
-Currently active players
-------------------------
-#{@players.map(&:name).join("\n")}
+      player.puts <<~EOS
+        Currently active players
+        ------------------------
+        #{@players.map(&:name).join("\n")}
 EOS
     end
   end
