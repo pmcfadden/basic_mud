@@ -1,17 +1,20 @@
 module ClasslessMud
+  # Representation of a space that characters
+  # can occupy in the game
   class Room
     include DataMapper::Resource
     property :id, Serial
-    property :number, Integer, :unique => true
+    property :number, Integer, unique: true
     property :description, Text
 
-    has n, :exits, :child_key => [ :source_id ]
-    has n, :connected_rooms, self, :through => :exits, :via => :target
+    has n, :exits, child_key: [:source_id]
+    has n, :connected_rooms, self, through: :exits, via: :target
     has n, :triggers, 'RoomTrigger', child_key: 'room_id'
     has n, :spawnpoints
+    has n, :shops
 
     def items
-      @items = @items || []
+      @items ||= []
       @items
     end
 
@@ -20,16 +23,16 @@ module ClasslessMud
     end
 
     def players
-      @players = @players || []
+      @players ||= []
       @players
     end
 
     def npcs
-      @npcs = @npcs || []
+      @npcs ||= []
       @npcs
     end
 
-    def enter player, message="#{player.name} entered the room."
+    def enter(player, message = "#{player.name} entered the room.")
       player.room = self
       broadcast message
       players << player
@@ -37,12 +40,12 @@ module ClasslessMud
       player.look
     end
 
-    def add_npc npc
+    def add_npc(npc)
       npc.room = self
       npcs << npc
     end
 
-    def remove_npc npc
+    def remove_npc(npc)
       npc.room = nil
       npcs.delete(npc)
     end
@@ -51,19 +54,19 @@ module ClasslessMud
       npcs.to_a + players.to_a
     end
 
-    def exit player
+    def exit(player)
       players.delete player
       broadcast "#{player.name} left the room"
       save
     end
 
-    def broadcast message
+    def broadcast(message)
       players.each do |occupant|
         occupant.puts message
       end
     end
 
-    def broadcast_say from, message
+    def broadcast_say(from, message)
       players.each do |player|
         if player == from
           player.puts "You say '#{message}'"
@@ -73,31 +76,29 @@ module ClasslessMud
       end
     end
 
-    def handle_message message
+    def handle_message(message)
       broadcast message
     end
 
-    def find keywords
+    def find(keywords)
       keywords_array = keywords.split
       items.detect do |item|
         (item.keywords.split & keywords_array).any?
       end
     end
 
-    def find_character keyword
+    def find_character(keyword)
       characters.detect do |character|
         character.name.include? keyword
       end
     end
 
-    def find_exit direction
+    def find_exit(direction)
       exits.first(direction: direction)
     end
 
     def tick
-      spawnpoints.each do |spawnpoint|
-        spawnpoint.try_spawn!
-      end
+      spawnpoints.each(&:try_spawn!)
       @npcs = ::ClasslessMud::Npc.all(room_id: id)
     end
   end
