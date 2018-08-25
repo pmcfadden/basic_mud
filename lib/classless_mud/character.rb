@@ -5,9 +5,9 @@ module ClasslessMud
     extend ActiveSupport::Concern
     include ClasslessMud::Colorizer
 
-    FIGHT = 'fight'
-    EDITOR = 'editor'
-    NORMAL = 'normal'
+    FIGHT = 'fight'.freeze
+    EDITOR = 'editor'.freeze
+    NORMAL = 'normal'.freeze
 
     included do
       property :id, DataMapper::Property::Serial
@@ -27,7 +27,7 @@ module ClasslessMud
       save
     end
 
-    def game= game
+    def game=(game)
       @game = game
     end
 
@@ -58,14 +58,14 @@ module ClasslessMud
       end
     end
 
-    def affect_health amount
+    def affect_health(amount)
       self.health += amount
       if amount > 0
-        self.puts "You are healed for #{amount} health."
-        self.puts "You have #{health} health"
+        puts "You are healed for #{amount} health."
+        puts "You have #{health} health"
       else
-        self.puts "You take #{amount.abs} damage."
-        self.puts "You have #{health} health"
+        puts "You take #{amount.abs} damage."
+        puts "You have #{health} health"
         die if dead?
       end
     end
@@ -94,7 +94,7 @@ module ClasslessMud
     end
 
     def room
-      @game.world.find_room(self.room_id)
+      @game.world.find_room(room_id)
     end
 
     def player?

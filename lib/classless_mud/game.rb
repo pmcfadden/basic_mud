@@ -4,7 +4,7 @@ module ClasslessMud
     attr_reader :settings
     attr_reader :world
 
-    def initialize world, quests, settings
+    def initialize(world, quests, settings)
       @players = []
       @world = world
       @settings = settings
@@ -33,7 +33,7 @@ module ClasslessMud
       end
     end
 
-    def add_player player
+    def add_player(player)
       @players << player
       player_room = player.room
       if player_room
@@ -48,23 +48,21 @@ module ClasslessMud
       @world.starting_room
     end
 
-    def room_with_number number
+    def room_with_number(number)
       @world.find_room_by_number number
     end
 
-    def remove_player player
-      if player.room
-        player.room.exit player
-      end
+    def remove_player(player)
+      player.room.exit player if player.room
       @players.delete player
       broadcast "#{player.name} has left the game."
     end
 
-    def broadcast message
+    def broadcast(message)
       @world.handle_message message
     end
 
-    def display_players player
+    def display_players(player)
       player.puts <<EOS
 Currently active players
 ------------------------

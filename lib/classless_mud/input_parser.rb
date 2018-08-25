@@ -1,7 +1,7 @@
 module ClasslessMud
   class InputParser
-    def parse input
-      return input
+    def parse(input)
+      input
     end
   end
 end

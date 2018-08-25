@@ -18,8 +18,8 @@ module ClasslessMud
       bright_red:    '38;5;160',
       bright_white:  '38;5;195',
       bright_yellow: '38;5;226',
-      bright_purple: '38;5;207',
-    }
+      bright_purple: '38;5;207'
+    }.freeze
 
     def colorize(input, color)
       color_code = CODES[color]

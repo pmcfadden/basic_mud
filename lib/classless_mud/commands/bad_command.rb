@@ -1,7 +1,7 @@
 module ClasslessMud
   module Commands
     class BadCommand
-      def self.perform game, player, message
+      def self.perform(_game, player, message)
         if matches(message).any?
           player.puts <<EOS
 Did you mean:
@@ -12,7 +12,7 @@ EOS
         end
       end
 
-      def self.matches message
+      def self.matches(message)
         Suggestions.new(message.split(' ').first)
                    .matches(ClasslessMud::Commands::Commands.commands)
       end
@@ -37,20 +37,19 @@ EOS
         end
 
         def deletions
-          (0..length).map { |i| "#{word[0...i]}#{word[i+1..-1]}" }
+          (0..length).map { |i| "#{word[0...i]}#{word[i + 1..-1]}" }
         end
 
         def transpositions
-          (0..length-1).map { |i| "#{word[0...i]}#{word[i+1, 1]}#{word[i,1]}#{word[i+2..-1]}" }
+          (0..length - 1).map { |i| "#{word[0...i]}#{word[i + 1, 1]}#{word[i, 1]}#{word[i + 2..-1]}" }
         end
 
         def replacements
-          (0..length-1).inject([]) do |sum, i|
-            sum += ('a'..'z').map { |c| "#{word[0...i]}#{c}#{word[i+1..-1]}" }
+          (0..length - 1).inject([]) do |sum, i|
+            sum += ('a'..'z').map { |c| "#{word[0...i]}#{c}#{word[i + 1..-1]}" }
           end
         end
       end
-
     end
   end
 end

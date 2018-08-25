@@ -1,7 +1,7 @@
 module ClasslessMud
   module Commands
     class Quests
-      def self.perform game, player, message
+      def self.perform(_game, player, message)
         _, quest_id = message.split ' '
         if quest_id && is_number?(quest_id)
           quest = player.quests.detect { |q| q.id == quest_id.to_i }
@@ -21,9 +21,9 @@ module ClasslessMud
       end
 
       def self.show_quests(player)
-        player.puts "Quests:"
-        player.puts "  To show a specific quest, type quests <id>"
-        player.campaigns.select { |c| !c.complete? }.each do |campaign|
+        player.puts 'Quests:'
+        player.puts '  To show a specific quest, type quests <id>'
+        player.campaigns.reject(&:complete?).each do |campaign|
           player.puts "  #{campaign.quest.id} - #{campaign.quest.name}"
         end
       end

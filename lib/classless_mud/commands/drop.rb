@@ -1,8 +1,8 @@
 module ClasslessMud
   module Commands
     class Drop
-      def self.perform game, player, message
-        _, drop_target = message.split " ", 2
+      def self.perform(game, player, message)
+        _, drop_target = message.split ' ', 2
         found = drop_target ? player.find_in_inventory(drop_target) : false
         if found
           player.items.delete found

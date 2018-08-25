@@ -2,12 +2,12 @@ module ClasslessMud
   module Commands
     module Admin
       class Create
-        def self.perform game, player, message
+        def self.perform(game, player, message)
           case message.split[1]
           when 'item'
             item = Item.create(name: 'A hint of an item')
             player.puts "Item ##{item.id} created!"
-            ::ClasslessMud::ItemEditor.new(player, item, lambda { |new_description|
+            ::ClasslessMud::ItemEditor.new(player, item, lambda { |_new_description|
               player.items << item
               player.items.save!
               player.puts "#{item.name} added to your inventory."
@@ -31,7 +31,7 @@ module ClasslessMud
             room = player.room
             ::ClasslessMud::Editor.new(player, room.description, lambda { |new_description|
               room.update(description: new_description)
-              player.puts "Room description updated."
+              player.puts 'Room description updated.'
             }).start!
           when 'exit'
             from_room = player.room
@@ -59,17 +59,17 @@ module ClasslessMud
               end
             end
           else
-            player.puts "Available subcommands:"
-            player.puts "    description  Edit current room description"
-            player.puts "    exit         Create an exit"
-            player.puts "    quest <name> Create a new quest"
-            player.puts "    room         Create a new room"
+            player.puts 'Available subcommands:'
+            player.puts '    description  Edit current room description'
+            player.puts '    exit         Create an exit'
+            player.puts '    quest <name> Create a new quest'
+            player.puts '    room         Create a new room'
           end
         end
 
-        def self.exit_help player, reason
+        def self.exit_help(player, reason)
           player.puts "Help for creating exits (#{reason}):"
-          player.puts "    create exit <direction> <room #>"
+          player.puts '    create exit <direction> <room #>'
           player.puts "Directions: #{Exit::DIRECTIONS.join(' ')}"
         end
       end

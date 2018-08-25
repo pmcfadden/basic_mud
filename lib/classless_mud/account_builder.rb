@@ -2,18 +2,18 @@ module ClasslessMud
   class AccountBuilder
     attr_reader :client, :game, :player
 
-    def self.create client, game, &on_complete
-      builder = self.new(client, game, on_complete)
+    def self.create(client, game, &on_complete)
+      builder = new(client, game, on_complete)
       builder.login_or_create
     end
 
-    def initialize client, game, on_complete
+    def initialize(client, game, on_complete)
       @client = client
       @game = game
       @on_complete = on_complete
     end
 
-    def login! player
+    def login!(player)
       @player = player
       player.client = client
       player.game = game
@@ -36,8 +36,8 @@ module ClasslessMud
       end
     end
 
-    def login player
-      client.puts "Password:"
+    def login(player)
+      client.puts 'Password:'
       client.on do |password|
         if player.password == password
           login! player
@@ -47,7 +47,7 @@ module ClasslessMud
       end
     end
 
-    def create account_name
+    def create(account_name)
       client.puts "No account by the name #{account_name} exists. Create this account now? [y/N]"
       client.on do |confirm_create|
         if confirm_create == 'y' || confirm_create == 'Y'
@@ -58,21 +58,21 @@ module ClasslessMud
       end
     end
 
-    def create_password account_name
+    def create_password(account_name)
       client.puts "Ok, #{account_name}. What is your password?"
       client.on do |password|
-        client.puts "Confirm password:"
+        client.puts 'Confirm password:'
         client.on do |confirm_password|
           if password == confirm_password
             player = Player.new(name: account_name, password: password)
             player.client = client
             player.game = game
-            ::ClasslessMud::CharacterSheetBuilder.create(player) {
+            ::ClasslessMud::CharacterSheetBuilder.create(player) do
               GameMaster.setup_player player
               login! player
-            }
+            end
           else
-            client.puts "Retrying.."
+            client.puts 'Retrying..'
             create_password account_name
           end
         end

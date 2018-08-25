@@ -2,7 +2,7 @@ module ClasslessMud
   module Commands
     module Admin
       class Delete
-        def self.perform game, player, message
+        def self.perform(_game, player, message)
           case message.split[1]
           when 'exit'
             from_room = player.room
@@ -26,14 +26,14 @@ module ClasslessMud
               end
             end
           else
-            player.puts "Available subcommands:"
-            player.puts "    exit         Delete an exit"
+            player.puts 'Available subcommands:'
+            player.puts '    exit         Delete an exit'
           end
         end
 
-        def self.exit_help player, reason
+        def self.exit_help(player, reason)
           player.puts "Help for creating exits (#{reason}):"
-          player.puts "    delete exit <direction>"
+          player.puts '    delete exit <direction>'
           player.puts "Directions: #{Exit::DIRECTIONS.join(' ')}"
         end
       end

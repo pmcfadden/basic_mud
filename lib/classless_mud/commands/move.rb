@@ -1,9 +1,9 @@
 module ClasslessMud
   module Commands
     module Move
-      def self.perform game, player, message
+      def self.perform(game, player, message)
         direction = message.split[0]
-        found_exit = player.room.exits.detect {|exit| exit.direction == direction}
+        found_exit = player.room.exits.detect { |exit| exit.direction == direction }
         room_id = found_exit ? found_exit.target.id : nil
         if room_id
           entering_room = game.world.find_room(room_id)
@@ -35,4 +35,3 @@ module ClasslessMud
     end
   end
 end
-

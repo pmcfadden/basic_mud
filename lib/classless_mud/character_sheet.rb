@@ -10,7 +10,7 @@ module ClasslessMud
       CON: :constitution,
       WIS: :wisdom,
       CHA: :charisma
-    }
+    }.freeze
 
     property :id, Serial
     property :strength, Integer, default: 10

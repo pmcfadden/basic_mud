@@ -25,7 +25,7 @@ module ClasslessMud
         @message = ''
         @player.puts 'Message cleared.'
       when 'show'
-        show_msg = @message.split("\n").each_with_index.map { |s, i| "#{i+1}. #{s}" }.join("\n")
+        show_msg = @message.split("\n").each_with_index.map { |s, i| "#{i + 1}. #{s}" }.join("\n")
         @player.puts show_msg
       when /^delete/
         row = message[/\d+/].to_i
@@ -48,7 +48,7 @@ module ClasslessMud
     end
 
     def encode(message)
-      message.encode(Encoding.find('UTF-8'), {invalid: :replace, undef: :replace, replace: ''})
+      message.encode(Encoding.find('UTF-8'), invalid: :replace, undef: :replace, replace: '')
     end
   end
 end

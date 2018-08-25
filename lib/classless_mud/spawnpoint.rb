@@ -23,7 +23,7 @@ module ClasslessMud
     private
 
     def alive_npcs
-      npcs.select { |npc| !npc.dead? }
+      npcs.reject(&:dead?)
     end
 
     def should_spawn?

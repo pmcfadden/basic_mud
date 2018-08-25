@@ -11,14 +11,14 @@ module ClasslessMud
     has n, :effects
     has n, :triggers, 'ItemTrigger', child_key: 'item_id'
 
-    belongs_to :player, :required => false
-    belongs_to :npc, :required => false
+    belongs_to :player, required: false
+    belongs_to :npc, required: false
 
     def edible?
       edible
     end
 
-    def affect player
+    def affect(player)
       effects.each { |effect| effect.affect(player) }
     end
 

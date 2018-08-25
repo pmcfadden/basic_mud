@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 lib_path = File.expand_path('../../lib', __FILE__)
-$:.unshift(lib_path)
+$LOAD_PATH.unshift(lib_path)
 require 'classless_mud'
 
 command = ARGV[0]

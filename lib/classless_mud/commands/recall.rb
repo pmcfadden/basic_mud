@@ -4,8 +4,8 @@ module ClasslessMud
       # TODO: Add player-specific recall locations
       RECALL_ROOM = 3
 
-      def self.perform game, player, message
-        player.puts "Are you sure you want to recall? y/n: "
+      def self.perform(game, player, _message)
+        player.puts 'Are you sure you want to recall? y/n: '
         player.on do |recall_response|
           if recall_response == 'y' || recall_response == 'Y'
             player.puts 'Recalling...'
@@ -22,4 +22,3 @@ module ClasslessMud
     end
   end
 end
-

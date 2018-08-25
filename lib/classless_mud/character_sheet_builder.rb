@@ -1,16 +1,16 @@
 module ClasslessMud
-  RACES = ['human', 'elven', 'halfling', 'giant']
-  PROFESSIONS = ['bard', 'cleric', 'fighter', 'paladin', 'ranger', 'thief', 'wizard']
+  RACES = %w[human elven halfling giant].freeze
+  PROFESSIONS = %w[bard cleric fighter paladin ranger thief wizard].freeze
   class CharacterSheetBuilder
     attr_reader :player, :character_sheet, :on_complete
 
-    def self.create player, &on_complete
-      builder = self.new player, on_complete
+    def self.create(player, &on_complete)
+      builder = new player, on_complete
       builder.build
       player.character_sheet
     end
 
-    def initialize player, on_complete
+    def initialize(player, on_complete)
       @player = player
       @character_sheet = CharacterSheet.new
       @on_complete = on_complete
@@ -74,7 +74,7 @@ Keep these? [y/N]
 EOS
 
       player.on do |confirm_roll|
-        if confirm_roll == 'Y' or confirm_roll == 'y'
+        if confirm_roll == 'Y' || confirm_roll == 'y'
           character_sheet.strength = strength_roll
           character_sheet.agility = agility_roll
           character_sheet.intelligence = intelligence_roll

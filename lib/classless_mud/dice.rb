@@ -9,7 +9,7 @@ module ClasslessMud
     attr_reader :rolls
     attr_reader :bonus
 
-    def initialize sides, rolls, bonus
+    def initialize(sides, rolls, bonus)
       @sides = sides
       @rolls = rolls
       @bonus = bonus

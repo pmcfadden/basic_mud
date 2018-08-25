@@ -1,5 +1,5 @@
 module ClasslessMud
-  MOTD = <<EOS
+  MOTD = <<EOS.freeze
                   .-~~~~~~~~~-._       _.-~~~~~~~~~-.
               __.'              ~.   .~              `.__
             .'//  We    are       \./    awesome.      \\`.
@@ -17,15 +17,15 @@ EOS
       @callbacks = []
     end
 
-    def start game
+    def start(game)
       @game = game
       send_data MOTD
-      ::ClasslessMud::AccountBuilder.create(self, game) { |player|
+      ::ClasslessMud::AccountBuilder.create(self, game) do |player|
         @player = player
-      }
+      end
     end
 
-    def receive_data data
+    def receive_data(data)
       data = data.chomp
       if @callbacks.any?
         callback = @callbacks.pop
@@ -36,11 +36,11 @@ EOS
       player.display_prompt if player
     end
 
-    def on &callback
+    def on(&callback)
       @callbacks.push callback
     end
 
-    def puts message
+    def puts(message)
       send_data "#{message}\n"
     end
   end

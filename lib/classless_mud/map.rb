@@ -5,14 +5,15 @@ module ClasslessMud
     end
 
     def print_map(distance = 5)
-      map = ["*"]
+      map = ['*']
       add_exits(@room, map, 0, 0, distance, [])
       map.join("\n")
     end
 
     def add_exits(room, map, x, y, n, covered)
       return [0, 0] if n.zero?
-      x_delta, y_delta = [0, 0]
+      x_delta = 0
+      y_delta = 0
       if y < 2
         map.map! do |row|
           "  #{row}"
@@ -26,14 +27,14 @@ module ClasslessMud
         end
       end
       if x < 2
-        map.unshift(" " * map.first.size)
-        map.unshift(" " * map.first.size)
+        map.unshift(' ' * map.first.size)
+        map.unshift(' ' * map.first.size)
         x += 2
         x_delta = 2
       end
       if map.size - x < 2
-        map << " " * map.first.size
-        map << " " * map.first.size
+        map << ' ' * map.first.size
+        map << ' ' * map.first.size
       end
       room.exits.each do |ex|
         next if covered.include? ex.target
@@ -58,7 +59,8 @@ module ClasslessMud
       end
       room.exits.each do |ex|
         next if covered.include? ex.target
-        x_delta_res, y_delta_res = [0, 0]
+        x_delta_res = 0
+        y_delta_res = 0
         case ex.direction
         when 'west'
           x_delta_res, y_delta_res = add_exits(ex.target, map, x, y - 2, n - 1, covered + [room])

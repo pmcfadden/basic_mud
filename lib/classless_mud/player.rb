@@ -17,28 +17,26 @@ module ClasslessMud
       campaigns.map(&:quest)
     end
 
-    def client= client
-      @client = client
-    end
+    attr_writer :client
 
     def close_client
       @game.remove_player self
       @client.close_connection
     end
 
-    def on &callback
+    def on(&callback)
       @client.on(&callback)
     end
 
-    def puts message
+    def puts(message)
       @client.puts message
     end
 
-    def puts_inline message
+    def puts_inline(message)
       @client.send_data message
     end
 
-    def handle_message message
+    def handle_message(message)
       case state
       when Character::FIGHT
         FightCommands.parse(message).perform @game, self, current_fight, message
@@ -67,11 +65,11 @@ module ClasslessMud
     end
 
     def look
-      handle_message "look"
+      handle_message 'look'
     end
 
     def die
-      self.puts "You dead. Respawning..."
+      puts 'You dead. Respawning...'
       self.state = NORMAL
       GameMaster.respawn_player self
     end

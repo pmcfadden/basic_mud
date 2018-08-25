@@ -1,7 +1,7 @@
 module ClasslessMud
   module Commands
     class Fight
-      def self.perform game, player, message
+      def self.perform(_game, player, message)
         target_name = message.split[1]
         target = player.room.characters.find { |c| c.name == target_name }
         if target.nil?

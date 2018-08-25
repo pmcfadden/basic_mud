@@ -3,7 +3,7 @@ module ClasslessMud
     class Chat
       extend ::ClasslessMud::Colorizer
 
-      def self.perform game, player, message
+      def self.perform(game, _player, message)
         command, message = message.split(' ', 2)
         game.players.each do |player|
           player.puts red("[CHAT] #{player.name}: #{message}")

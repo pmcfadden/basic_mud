@@ -1,6 +1,6 @@
 module ClasslessMud::Commands::Admin
   class Kick
-    def self.perform game, player, message
+    def self.perform(game, player, message)
       other_player_name = message.split[1]
       other_player = game.players.find { |player| player.name == other_player_name }
       if other_player.nil?

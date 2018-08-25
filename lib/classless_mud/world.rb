@@ -1,24 +1,22 @@
 module ClasslessMud
   class World
-    def initialize rooms
+    def initialize(rooms)
       @rooms = rooms
     end
 
     def tick
-      @rooms.each do |room|
-        room.tick
-      end
+      @rooms.each(&:tick)
     end
 
-    def add_player player
+    def add_player(player)
       @players << player
     end
 
-    def find_room id
-      @rooms.detect {|room| room.id == id}
+    def find_room(id)
+      @rooms.detect { |room| room.id == id }
     end
 
-    def find_room_by_number number
+    def find_room_by_number(number)
       @rooms.detect { |room| room.number == number }
     end
 
@@ -26,11 +24,11 @@ module ClasslessMud
       @rooms[0]
     end
 
-    def handle_message message
+    def handle_message(message)
       broadcast message
     end
 
-    def add_room room
+    def add_room(room)
       @rooms << room
     end
 
@@ -38,7 +36,7 @@ module ClasslessMud
       @rooms.map(&:number).max
     end
 
-    def broadcast message
+    def broadcast(message)
       @rooms.each do |room|
         room.handle_message message
       end

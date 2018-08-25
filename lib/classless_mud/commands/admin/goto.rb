@@ -2,7 +2,7 @@ module ClasslessMud
   module Commands
     module Admin
       class Goto
-        def self.perform game, player, message
+        def self.perform(_game, player, message)
           room_number = message.split[1]
           if room_number =~ /^\d+$/
             room = Room.first(number: room_number)
@@ -18,7 +18,7 @@ module ClasslessMud
           end
         end
 
-        def self.help_message player
+        def self.help_message(player)
           player.puts 'Usage:'
           player.puts '    goto <room#>'
         end

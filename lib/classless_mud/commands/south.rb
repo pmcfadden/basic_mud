@@ -1,7 +1,7 @@
 module ClasslessMud
   module Commands
     class South
-      def self.perform game, player, message
+      def self.perform(game, player, _message)
         Move.perform game, player, 'south'
       end
     end

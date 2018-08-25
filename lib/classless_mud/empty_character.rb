@@ -6,7 +6,7 @@ module ClasslessMud
       @name = 'Unknown'
     end
 
-    def puts message
+    def puts(message)
       # Do nothing
     end
 
@@ -18,7 +18,7 @@ module ClasslessMud
       '1d1+0'
     end
 
-    def affect_health amount
+    def affect_health(amount)
       # Do nothing
     end
 

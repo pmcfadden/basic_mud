@@ -2,7 +2,7 @@ module ClasslessMud
   module Commands
     module Admin
       class Edit
-        def self.perform game, player, message
+        def self.perform(game, player, message)
           case message.split[1]
           when 'quest'
             _, _, field, id, rest = message.split ' ', 5
@@ -27,7 +27,7 @@ module ClasslessMud
             _, _, keyword = message.split ' '
             item = player.find_in_inventory keyword
             if item
-              ::ClasslessMud::ItemEditor.new(player, item.reload, lambda { |new_description|
+              ::ClasslessMud::ItemEditor.new(player, item.reload, lambda { |_new_description|
                 player.puts "Item #{item.id} updated!"
               }).start!
             else
@@ -63,12 +63,12 @@ module ClasslessMud
         end
 
         def self.edit_help(player)
-          player.puts "Available subcommands:"
-          player.puts "    quest name <id> <name>          Edit quest name"
-          player.puts "    quest description <id>          Edit quest description"
-          player.puts "    item <keyword>                  Edit item"
-          player.puts "    room add trigger <type> <name>  Add a room trigger"
-          player.puts "    room add spawn"
+          player.puts 'Available subcommands:'
+          player.puts '    quest name <id> <name>          Edit quest name'
+          player.puts '    quest description <id>          Edit quest description'
+          player.puts '    item <keyword>                  Edit item'
+          player.puts '    room add trigger <type> <name>  Add a room trigger'
+          player.puts '    room add spawn'
         end
       end
     end

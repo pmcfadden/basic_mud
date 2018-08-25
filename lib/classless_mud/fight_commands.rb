@@ -12,7 +12,7 @@ module ClasslessMud
   end
 
   class NoAction
-    def perform(game, player, fight, message)
+    def perform(_game, player, fight, _message)
       player.puts <<-EOS
 #{fight.title}
 You can
@@ -23,7 +23,7 @@ You can
   end
 
   class Flee
-    def perform(game, player, fight, message)
+    def perform(_game, player, fight, _message)
       other = fight.other(player)
       player.end_fight!
       other.end_fight!
@@ -33,7 +33,7 @@ You can
   end
 
   class Attack
-    def perform(game, player, fight, message)
+    def perform(_game, player, fight, _message)
       player.puts 'You attack!'
       fight.other(player).puts "#{player.name} attacks you!"
       fight.attack!
